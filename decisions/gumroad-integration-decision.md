@@ -78,4 +78,6 @@ This finding (no confirmed public product-creation API; manual-assist is the app
 
 ## Result
 
-<To be filled in once the product is manually listed on Gumroad and the live URL is confirmed.>
+- Live product URL: https://kimnet8.gumroad.com/l/eagpjf
+- Verified live via `curl` (HTTP 200) on 2026-08-21.
+- Created manually by the user following the checklist above, including cover image (`product/cover-600x600.png`) and product zip (`product/product.zip`).
