@@ -14,3 +14,9 @@
 - `templates/base.html` 푸터에 beehiiv 구독 링크 추가 (https://podcast-producer-tracker.beehiiv.com/subscribe)
 - 전체 10개 페이지(포스트 9개 + index)에 자동 반영, 별도 콘텐츠/스크립트 변경 없음
 - 니치 A(multi-cat-tracker)에서 검증된 패턴을 그대로 복제 — 별도 검증 기간 없음
+
+## [2026-09-01] FEATURE | Amazon 제휴 링크 도입 (니치 A 패턴 복제)
+
+- 신규 포스트 게시: podcast-production-essentials (제작/운영 업무 관리 용품 14개, 카테고리 검색형 Amazon Associates 링크, 오디오 장비 콘텐츠 없음)
+- 허브-스포크 연결: pillar-guide.html에서 링크, 새 포스트에서 pillar-guide.html로 역링크
+- 니치 A(multi-cat-tracker)에서 검증된 패턴을 그대로 복제 — 별도 검증 기간 없음
