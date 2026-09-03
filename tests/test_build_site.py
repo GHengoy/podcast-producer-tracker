@@ -84,6 +84,70 @@ class TestBuildSite(unittest.TestCase):
         exit_code = main(["build_site.py", "a", "b"])
         self.assertEqual(exit_code, 2)
 
+    def test_load_homepage_config_returns_none_when_absent(self):
+        from build_site import load_homepage_config
+        self.assertIsNone(load_homepage_config(self.root))
+
+    def test_load_homepage_config_reads_json(self):
+        from build_site import load_homepage_config
+        config = {
+            "headline": "H", "tagline": "T", "product_name": "P",
+            "product_price": "$9.99", "product_description": "D",
+            "product_image": "cover.png", "buy_url": "https://example.com/buy",
+            "buy_label": "Buy Now",
+        }
+        (self.root / "homepage.json").write_text(json.dumps(config), encoding="utf-8")
+        self.assertEqual(load_homepage_config(self.root), config)
+
+    def test_render_hero_includes_headline_and_buy_button(self):
+        from build_site import render_hero
+        config = {
+            "headline": "Headline Text", "tagline": "Tagline text",
+            "product_name": "Product Name", "product_price": "$9.99",
+            "product_description": "Product description",
+            "product_image": "cover.png", "buy_url": "https://example.com/buy",
+            "buy_label": "Buy Now",
+        }
+        html = render_hero(config)
+        self.assertIn("Headline Text", html)
+        self.assertIn("Tagline text", html)
+        self.assertIn("Product Name", html)
+        self.assertIn("$9.99", html)
+        self.assertIn('href="https://example.com/buy"', html)
+        self.assertIn("Buy Now", html)
+        self.assertIn("Latest Posts", html)
+
+    def test_render_index_with_hero_html_prepends_before_list(self):
+        html = render_index(TEMPLATE, [{"slug": "a", "title": "A", "date": "2026-08-20", "body": ""}], hero_html="<div>HERO</div>")
+        self.assertLess(html.index("HERO"), html.index("<ul>"))
+
+    def test_build_site_with_homepage_json_copies_image_and_includes_hero(self):
+        from build_site import load_homepage_config
+        self._write_post("first-post", "First Post", "2026-08-21", "<p>hello</p>")
+        config = {
+            "headline": "Headline Text", "tagline": "Tagline text",
+            "product_name": "Product Name", "product_price": "$9.99",
+            "product_description": "Product description",
+            "product_image": "cover.png", "buy_url": "https://example.com/buy",
+            "buy_label": "Buy Now",
+        }
+        (self.root / "homepage.json").write_text(json.dumps(config), encoding="utf-8")
+        product_dir = self.root / "product"
+        product_dir.mkdir()
+        (product_dir / "cover.png").write_bytes(b"fake-image-bytes")
+        build_site(self.posts_dir, self.template_path, self.output_dir)
+        self.assertTrue((self.output_dir / "cover.png").exists())
+        self.assertEqual((self.output_dir / "cover.png").read_bytes(), b"fake-image-bytes")
+        index_html = (self.output_dir / "index.html").read_text(encoding="utf-8")
+        self.assertIn("Headline Text", index_html)
+
+    def test_build_site_without_homepage_json_unchanged(self):
+        self._write_post("first-post", "First Post", "2026-08-21", "<p>hello</p>")
+        written = build_site(self.posts_dir, self.template_path, self.output_dir)
+        index_html = (self.output_dir / "index.html").read_text(encoding="utf-8")
+        self.assertNotIn("product-box", index_html)
+        self.assertEqual(len(written), 2)
+
 
 if __name__ == "__main__":
     unittest.main()

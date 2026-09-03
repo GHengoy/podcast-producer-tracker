@@ -4,6 +4,14 @@ import sys
 from pathlib import Path
 
 
+def load_homepage_config(repo_root: Path) -> dict | None:
+    """Load homepage.json from repo_root if present; return None if absent (backward compatible)."""
+    config_path = repo_root / "homepage.json"
+    if not config_path.exists():
+        return None
+    return json.loads(config_path.read_text(encoding="utf-8"))
+
+
 def load_posts(posts_dir: Path) -> list[dict]:
     """Load all posts from posts_dir, pairing each .json metadata file with its .html body."""
     posts = []
@@ -36,13 +44,28 @@ def render_post(template: str, post: dict) -> str:
     )
 
 
-def render_index(template: str, posts: list[dict]) -> str:
-    """Fill the base template with a list of links to all posts, newest first."""
+def render_hero(config: dict) -> str:
+    """Render the homepage hero + product highlight block from a homepage.json config dict."""
+    return (
+        f'<h2>{config["headline"]}</h2>\n'
+        f'<p>{config["tagline"]}</p>\n'
+        f'<div class="product-box">\n'
+        f'<img src="{config["product_image"]}" alt="{config["product_name"]}">\n'
+        f'<h3>{config["product_name"]} — {config["product_price"]}</h3>\n'
+        f'<p>{config["product_description"]}</p>\n'
+        f'<p><a class="buy-button" href="{config["buy_url"]}">{config["buy_label"]}</a></p>\n'
+        f'</div>\n'
+        f'<h3>Latest Posts</h3>\n'
+    )
+
+
+def render_index(template: str, posts: list[dict], hero_html: str = "") -> str:
+    """Fill the base template with a list of links to all posts, newest first. Optionally prefixed with a hero/product block."""
     items = "\n".join(
         f'<li><a href="{p["slug"]}.html">{p["title"]}</a> — {p["date"]}</li>'
         for p in sorted(posts, key=lambda p: p["date"], reverse=True)
     )
-    body = f"<ul>\n{items}\n</ul>"
+    body = f"{hero_html}<ul>\n{items}\n</ul>"
     return (
         template
         .replace("{{TITLE}}", "Home")
@@ -63,8 +86,18 @@ def build_site(posts_dir: Path, template_path: Path, output_dir: Path) -> list[P
         out_path.write_text(render_post(template, post), encoding="utf-8")
         written.append(out_path)
 
+    homepage_config = load_homepage_config(posts_dir.parent)
+    hero_html = ""
+    if homepage_config:
+        hero_html = render_hero(homepage_config)
+        image_name = homepage_config["product_image"]
+        image_bytes = (posts_dir.parent / "product" / image_name).read_bytes()
+        image_dest = output_dir / image_name
+        image_dest.write_bytes(image_bytes)
+        written.append(image_dest)
+
     index_path = output_dir / "index.html"
-    index_path.write_text(render_index(template, posts), encoding="utf-8")
+    index_path.write_text(render_index(template, posts, hero_html), encoding="utf-8")
     written.append(index_path)
     return written
 
