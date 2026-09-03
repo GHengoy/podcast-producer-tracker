@@ -20,3 +20,9 @@
 - 신규 포스트 게시: podcast-production-essentials (제작/운영 업무 관리 용품 14개, 카테고리 검색형 Amazon Associates 링크, 오디오 장비 콘텐츠 없음)
 - 허브-스포크 연결: pillar-guide.html에서 링크, 새 포스트에서 pillar-guide.html로 역링크
 - 니치 A(multi-cat-tracker)에서 검증된 패턴을 그대로 복제 — 별도 검증 기간 없음
+
+## [2026-09-03] FEATURE | 홈페이지 전환율 개선 (헤드라인 + 상품 하이라이트)
+
+- `build_site.py`에 `homepage.json` 기반 히어로/상품 블록 렌더링 기능 추가(파일 없으면 기존과 동일하게 동작 — 하위 호환)
+- 홈페이지(index.html)에 헤드라인/태그라인/상품 이미지/가격/구매 버튼 노출, 기존 포스트 목록은 "Latest Posts" 아래로 이동
+- 개별 포스트 페이지는 이번 변경으로 영향받지 않음
