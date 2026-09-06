@@ -12,6 +12,14 @@ def load_homepage_config(repo_root: Path) -> dict | None:
     return json.loads(config_path.read_text(encoding="utf-8"))
 
 
+def load_site_config(repo_root: Path) -> dict | None:
+    """Load site.json from repo_root if present; return None if absent (backward compatible)."""
+    config_path = repo_root / "site.json"
+    if not config_path.exists():
+        return None
+    return json.loads(config_path.read_text(encoding="utf-8"))
+
+
 def load_posts(posts_dir: Path) -> list[dict]:
     """Load all posts from posts_dir, pairing each .json metadata file with its .html body."""
     posts = []
@@ -74,6 +82,24 @@ def render_index(template: str, posts: list[dict], hero_html: str = "") -> str:
     )
 
 
+def render_sitemap(posts: list[dict], base_url: str) -> str:
+    """Render sitemap.xml content: the index page plus one entry per post page, newest first."""
+    ordered = sorted(posts, key=lambda p: p["date"], reverse=True)
+    entries = [
+        f'<url><loc>{base_url}{p["slug"]}.html</loc><lastmod>{p["date"]}</lastmod></url>'
+        for p in ordered
+    ]
+    index_lastmod = f'<lastmod>{ordered[0]["date"]}</lastmod>' if ordered else ""
+    index_entry = f"<url><loc>{base_url}index.html</loc>{index_lastmod}</url>"
+    body = "\n".join([index_entry] + entries)
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{body}\n"
+        "</urlset>\n"
+    )
+
+
 def build_site(posts_dir: Path, template_path: Path, output_dir: Path) -> list[Path]:
     """Build the full site: one HTML file per post plus an index.html. Returns written paths."""
     template = template_path.read_text(encoding="utf-8")
@@ -95,6 +121,12 @@ def build_site(posts_dir: Path, template_path: Path, output_dir: Path) -> list[P
         image_dest = output_dir / image_name
         image_dest.write_bytes(image_bytes)
         written.append(image_dest)
+
+    site_config = load_site_config(posts_dir.parent)
+    if site_config:
+        sitemap_path = output_dir / "sitemap.xml"
+        sitemap_path.write_text(render_sitemap(posts, site_config["base_url"]), encoding="utf-8")
+        written.append(sitemap_path)
 
     index_path = output_dir / "index.html"
     index_path.write_text(render_index(template, posts, hero_html), encoding="utf-8")

@@ -7,7 +7,7 @@ import json
 import tempfile
 import unittest
 
-from build_site import build_site, load_posts, render_post, render_index, main
+from build_site import build_site, load_posts, render_post, render_index, main, load_site_config, render_sitemap
 
 TEMPLATE = "<html><head><title>{{TITLE}}</title></head><body><h1>{{TITLE}}</h1><p>{{DATE}}</p>{{BODY}}</body></html>"
 
@@ -146,6 +146,45 @@ class TestBuildSite(unittest.TestCase):
         written = build_site(self.posts_dir, self.template_path, self.output_dir)
         index_html = (self.output_dir / "index.html").read_text(encoding="utf-8")
         self.assertNotIn("product-box", index_html)
+        self.assertEqual(len(written), 2)
+
+    def test_load_site_config_returns_none_when_absent(self):
+        self.assertIsNone(load_site_config(self.root))
+
+    def test_load_site_config_reads_json(self):
+        config = {"base_url": "https://example.com/site/"}
+        (self.root / "site.json").write_text(json.dumps(config), encoding="utf-8")
+        self.assertEqual(load_site_config(self.root), config)
+
+    def test_render_sitemap_lists_index_and_posts_with_lastmod(self):
+        posts = [
+            {"slug": "a", "title": "A", "date": "2026-08-20", "body": ""},
+            {"slug": "b", "title": "B", "date": "2026-08-22", "body": ""},
+        ]
+        xml = render_sitemap(posts, "https://example.com/site/")
+        self.assertIn('<?xml version="1.0" encoding="UTF-8"?>', xml)
+        self.assertIn("<loc>https://example.com/site/index.html</loc>", xml)
+        self.assertIn("<loc>https://example.com/site/a.html</loc>", xml)
+        self.assertIn("<loc>https://example.com/site/b.html</loc>", xml)
+        self.assertIn("<lastmod>2026-08-22</lastmod>", xml)
+        self.assertLess(xml.index("b.html"), xml.index("a.html"))
+
+    def test_build_site_with_site_json_writes_sitemap(self):
+        self._write_post("first-post", "First Post", "2026-08-21", "<p>hello</p>")
+        (self.root / "site.json").write_text(
+            json.dumps({"base_url": "https://example.com/site/"}), encoding="utf-8"
+        )
+        written = build_site(self.posts_dir, self.template_path, self.output_dir)
+        sitemap_path = self.output_dir / "sitemap.xml"
+        self.assertTrue(sitemap_path.exists())
+        self.assertIn(sitemap_path, written)
+        xml = sitemap_path.read_text(encoding="utf-8")
+        self.assertIn("<loc>https://example.com/site/first-post.html</loc>", xml)
+
+    def test_build_site_without_site_json_no_sitemap(self):
+        self._write_post("first-post", "First Post", "2026-08-21", "<p>hello</p>")
+        written = build_site(self.posts_dir, self.template_path, self.output_dir)
+        self.assertFalse((self.output_dir / "sitemap.xml").exists())
         self.assertEqual(len(written), 2)
 
 
