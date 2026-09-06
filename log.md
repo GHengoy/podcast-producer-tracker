@@ -26,3 +26,9 @@
 - `build_site.py`에 `homepage.json` 기반 히어로/상품 블록 렌더링 기능 추가(파일 없으면 기존과 동일하게 동작 — 하위 호환)
 - 홈페이지(index.html)에 헤드라인/태그라인/상품 이미지/가격/구매 버튼 노출, 기존 포스트 목록은 "Latest Posts" 아래로 이동
 - 개별 포스트 페이지는 이번 변경으로 영향받지 않음
+
+## [2026-09-06] FEATURE | sitemap.xml 자동 생성
+
+- `build_site.py`에 `site.json` 기반 sitemap.xml 생성 기능 추가(파일 없으면 기존과 동일 동작 — 하위 호환)
+- Search Console 제출용 URL: https://ghengoy.github.io/podcast-producer-tracker/sitemap.xml
+- 개별 포스트/홈페이지 히어로 출력은 이번 변경으로 영향받지 않음
