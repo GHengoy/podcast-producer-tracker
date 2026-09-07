@@ -32,3 +32,10 @@
 - `build_site.py`에 `site.json` 기반 sitemap.xml 생성 기능 추가(파일 없으면 기존과 동일 동작 — 하위 호환)
 - Search Console 제출용 URL: https://ghengoy.github.io/podcast-producer-tracker/sitemap.xml
 - 개별 포스트/홈페이지 히어로 출력은 이번 변경으로 영향받지 않음
+
+## [2026-09-07] CONTENT | 신규 포스트: 에피소드 체크리스트
+
+- 검색 의도형 포스트 추가: "podcast episode checklist" 쿼리 타게팅
+- 5단계 체크리스트 구조 (사전 준비 → 녹음 → 편집 → 발행 → 사후 추적)
+- pillar-guide.html에 "Stage-by-Stage Episode Checklist" 섹션 추가 (링크 역할)
+- 테스트 결과: 10개 포스트 모두 검증 통과, 30개 단위 테스트 통과, 빌드 성공 (13 파일)
