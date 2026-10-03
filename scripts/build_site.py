@@ -1,4 +1,5 @@
 """Static site builder: assembles docs/ output from posts/ + templates/base.html."""
+import html
 import json
 import sys
 from pathlib import Path
@@ -38,22 +39,53 @@ def load_posts(posts_dir: Path) -> list[dict]:
             "title": meta["title"],
             "date": meta["date"],
             "body": body,
+            "description": meta.get("description"),
+            "unlisted": meta.get("unlisted", False),
         })
     return posts
 
 
-def render_post(template: str, post: dict) -> str:
+def render_head_meta(title: str, description: str | None, url: str | None, og_type: str, image_url: str | None) -> str:
+    """Render description, canonical and Open Graph tags; a tag is skipped when its source value is missing."""
+    def attr(value: str) -> str:
+        return html.escape(value, quote=True)
+
+    tags = []
+    if description:
+        tags.append(f'<meta name="description" content="{attr(description)}">')
+    if url:
+        tags.append(f'<link rel="canonical" href="{attr(url)}">')
+    tags.append(f'<meta property="og:type" content="{og_type}">')
+    tags.append(f'<meta property="og:title" content="{attr(title)}">')
+    if description:
+        tags.append(f'<meta property="og:description" content="{attr(description)}">')
+    if url:
+        tags.append(f'<meta property="og:url" content="{attr(url)}">')
+    if image_url:
+        tags.append(f'<meta property="og:image" content="{attr(image_url)}">')
+    return "\n".join(tags)
+
+
+def render_post(template: str, post: dict, head_meta: str = "") -> str:
     """Fill the base template with one post's title/date/body."""
     return (
         template
         .replace("{{TITLE}}", post["title"])
         .replace("{{DATE}}", post["date"])
+        .replace("{{HEAD_META}}", head_meta)
         .replace("{{BODY}}", post["body"])
     )
 
 
 def render_hero(config: dict) -> str:
-    """Render the homepage hero + product highlight block from a homepage.json config dict."""
+    """Render the homepage hero + product highlight block from a homepage.json config dict.
+
+    The buy button opens a Paddle overlay checkout when 'paddle_price_id' is set, otherwise links to 'buy_url'.
+    """
+    if config.get("paddle_price_id"):
+        buy_attrs = f'href="#" data-paddle-price-id="{config["paddle_price_id"]}"'
+    else:
+        buy_attrs = f'href="{config["buy_url"]}"'
     return (
         f'<h2>{config["headline"]}</h2>\n'
         f'<p>{config["tagline"]}</p>\n'
@@ -61,23 +93,25 @@ def render_hero(config: dict) -> str:
         f'<img src="{config["product_image"]}" alt="{config["product_name"]}">\n'
         f'<h3>{config["product_name"]} — {config["product_price"]}</h3>\n'
         f'<p>{config["product_description"]}</p>\n'
-        f'<p><a class="buy-button" href="{config["buy_url"]}">{config["buy_label"]}</a></p>\n'
+        f'<p><a class="buy-button" {buy_attrs}>{config["buy_label"]}</a></p>\n'
         f'</div>\n'
         f'<h3>Latest Posts</h3>\n'
     )
 
 
-def render_index(template: str, posts: list[dict], hero_html: str = "") -> str:
-    """Fill the base template with a list of links to all posts, newest first. Optionally prefixed with a hero/product block."""
+def render_index(template: str, posts: list[dict], hero_html: str = "", head_meta: str = "", title: str = "Home") -> str:
+    """Fill the base template with a list of links to all posts, newest first. Posts marked 'unlisted' are excluded. Optionally prefixed with a hero/product block."""
+    listed_posts = [p for p in posts if not p.get("unlisted", False)]
     items = "\n".join(
         f'<li><a href="{p["slug"]}.html">{p["title"]}</a> — {p["date"]}</li>'
-        for p in sorted(posts, key=lambda p: p["date"], reverse=True)
+        for p in sorted(listed_posts, key=lambda p: p["date"], reverse=True)
     )
     body = f"{hero_html}<ul>\n{items}\n</ul>"
     return (
         template
-        .replace("{{TITLE}}", "Home")
+        .replace("{{TITLE}}", title)
         .replace("{{DATE}}", "")
+        .replace("{{HEAD_META}}", head_meta)
         .replace("{{BODY}}", body)
     )
 
@@ -106,10 +140,16 @@ def build_site(posts_dir: Path, template_path: Path, output_dir: Path) -> list[P
     posts = load_posts(posts_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    site_config = load_site_config(posts_dir.parent) or {}
+    base_url = site_config.get("base_url")
+    image_url = f'{base_url}{site_config["og_image"]}' if base_url and site_config.get("og_image") else None
+
     written = []
     for post in posts:
         out_path = output_dir / f"{post['slug']}.html"
-        out_path.write_text(render_post(template, post), encoding="utf-8")
+        post_url = f"{base_url}{post['slug']}.html" if base_url else None
+        head_meta = render_head_meta(post["title"], post["description"], post_url, "article", image_url)
+        out_path.write_text(render_post(template, post, head_meta), encoding="utf-8")
         written.append(out_path)
 
     homepage_config = load_homepage_config(posts_dir.parent)
@@ -122,14 +162,16 @@ def build_site(posts_dir: Path, template_path: Path, output_dir: Path) -> list[P
         image_dest.write_bytes(image_bytes)
         written.append(image_dest)
 
-    site_config = load_site_config(posts_dir.parent)
-    if site_config:
+    if base_url:
         sitemap_path = output_dir / "sitemap.xml"
-        sitemap_path.write_text(render_sitemap(posts, site_config["base_url"]), encoding="utf-8")
+        sitemap_path.write_text(render_sitemap(posts, base_url), encoding="utf-8")
         written.append(sitemap_path)
 
+    index_title = site_config.get("title", "Home")
+    index_url = f"{base_url}index.html" if base_url else None
+    index_meta = render_head_meta(index_title, site_config.get("description"), index_url, "website", image_url)
     index_path = output_dir / "index.html"
-    index_path.write_text(render_index(template, posts, hero_html), encoding="utf-8")
+    index_path.write_text(render_index(template, posts, hero_html, index_meta, index_title), encoding="utf-8")
     written.append(index_path)
     return written
 

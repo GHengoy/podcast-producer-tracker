@@ -39,3 +39,10 @@
 - 5단계 체크리스트 구조 (사전 준비 → 녹음 → 편집 → 발행 → 사후 추적)
 - pillar-guide.html에 "Stage-by-Stage Episode Checklist" 섹션 추가 (링크 역할)
 - 테스트 결과: 10개 포스트 모두 검증 통과, 30개 단위 테스트 통과, 빌드 성공 (13 파일)
+
+## [2026-10-03] SEO | 메타 설명, canonical, Open Graph 태그 추가
+
+- 모든 포스트 JSON에 `description` 추가, `build_site.py`가 base.html의 `{{HEAD_META}}` 자리에 description/canonical/og 태그 렌더링
+- `site.json`에 `title`, `description`, `og_image` 추가 — 홈페이지 제목이 "Home" 대신 사이트 이름으로 표시
+- `build_site.py`를 3개 니치 저장소에서 동일 코드로 통일(unlisted 포스트, 홈 히어로, Paddle/URL 구매 버튼 지원)
+- 배경: Search Console에서 홈페이지 1개만 색인, 사이트맵 "가져올 수 없음" 상태 확인 — 2026-10-03 사이트맵 재제출 및 색인 요청

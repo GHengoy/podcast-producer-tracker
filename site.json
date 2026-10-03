@@ -1,1 +1,6 @@
-{"base_url": "https://ghengoy.github.io/podcast-producer-tracker/"}
+{
+  "base_url": "https://ghengoy.github.io/podcast-producer-tracker/",
+  "title": "Podcast Episode & Production Management",
+  "description": "Guides for organizing podcast production: episode checklists, guest coordination, recording-to-publish timelines, and sponsor tracking, plus a ready-made tracker.",
+  "og_image": "cover-600x600.png"
+}
