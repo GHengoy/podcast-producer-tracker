@@ -163,9 +163,13 @@ def build_site(posts_dir: Path, template_path: Path, output_dir: Path) -> list[P
         written.append(image_dest)
 
     if base_url:
-        sitemap_path = output_dir / "sitemap.xml"
-        sitemap_path.write_text(render_sitemap(posts, base_url), encoding="utf-8")
-        written.append(sitemap_path)
+        sitemap_xml = render_sitemap(posts, base_url)
+        # sitemap-posts.xml is a fresh name for Search Console, which kept reporting
+        # "couldn't fetch" for sitemap.xml after an early failed read
+        for name in ("sitemap.xml", "sitemap-posts.xml"):
+            sitemap_path = output_dir / name
+            sitemap_path.write_text(sitemap_xml, encoding="utf-8")
+            written.append(sitemap_path)
 
     index_title = site_config.get("title", "Home")
     index_url = f"{base_url}index.html" if base_url else None

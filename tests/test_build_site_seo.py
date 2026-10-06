@@ -89,6 +89,12 @@ class TestBuildSiteSeo(unittest.TestCase):
         self.assertIn('<link rel="canonical" href="https://example.com/site/index.html">', html)
         self.assertIn('<meta property="og:type" content="website">', html)
 
+    def test_sitemap_also_written_under_alias_name(self):
+        self._write_site_json()
+        build_site(self.posts_dir, self.template_path, self.output_dir)
+        primary = (self.output_dir / "sitemap.xml").read_text(encoding="utf-8")
+        self.assertEqual((self.output_dir / "sitemap-posts.xml").read_text(encoding="utf-8"), primary)
+
     def test_without_site_json_index_title_stays_home(self):
         build_site(self.posts_dir, self.template_path, self.output_dir)
         html = (self.output_dir / "index.html").read_text(encoding="utf-8")
