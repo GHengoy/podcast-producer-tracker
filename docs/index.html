@@ -23,6 +23,12 @@
   .product-box img { max-width: 200px; display: block; margin-bottom: 1rem; }
   .buy-button { display: inline-block; background: #0a5; color: #fff; padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: bold; }
   .buy-button:hover { background: #084; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0 2rem; }
+  .product-card { display: flex; flex-direction: column; gap: 0.25rem; border: 1px solid #ddd; border-radius: 8px; padding: 0.75rem; color: #222; text-decoration: none; font-size: 0.9rem; line-height: 1.35; }
+  .product-card:hover { border-color: #0a5; }
+  .product-card img { width: 100%; height: auto; border-radius: 4px; }
+  .product-card span { color: #666; }
+  .product-card .price { color: #0a5; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -38,6 +44,22 @@
 <p>A ready-to-use spreadsheet and guide for tracking episodes from idea to publish.</p>
 <p><a class="buy-button" href="https://kimnet8.gumroad.com/l/eagpjf">Get the Tracker</a></p>
 </div>
+<section class="more-products">
+<h3>More podcast planning tools</h3>
+<div class="product-grid">
+<a class="product-card" href="https://kimnet8.gumroad.com/l/ycqngv"><img src="more/podcast-command-center-premium.jpg" alt="Podcast Command Center Dashboard (Premium)" loading="lazy"><strong>Podcast Command Center Dashboard (Premium)</strong><span>All-in-one Excel &amp; Google Sheets dashboard + PDF guide</span><span class="price">$34.99</span></a>
+<a class="product-card" href="https://kimnet8.gumroad.com/l/sztjbn"><img src="more/podcast-producer-complete-kit.jpg" alt="Podcast Producer Complete Planning Kit" loading="lazy"><strong>Podcast Producer Complete Planning Kit</strong><span>4 trackers: Excel &amp; Google Sheets + PDF guides</span><span class="price">$29.99</span></a>
+<a class="product-card" href="https://kimnet8.gumroad.com/l/qyiqx"><img src="more/podcast-content-calendar.jpg" alt="Podcast Content Calendar" loading="lazy"><strong>Podcast Content Calendar</strong><span>12-month episode planner + printable PDF guide</span><span class="price">$9.99</span></a>
+<a class="product-card" href="https://kimnet8.gumroad.com/l/xqtwt"><img src="more/podcast-guest-outreach-tracker.jpg" alt="Podcast Guest Outreach Tracker" loading="lazy"><strong>Podcast Guest Outreach Tracker</strong><span>Excel &amp; Google Sheets tracker + printable PDF guide</span><span class="price">$8.99</span></a>
+<a class="product-card" href="https://kimnet8.gumroad.com/l/bsqxojt"><img src="more/podcast-sponsor-revenue-tracker.jpg" alt="Podcast Sponsor &amp; Revenue Tracker" loading="lazy"><strong>Podcast Sponsor &amp; Revenue Tracker</strong><span>Excel &amp; Google Sheets tracker + printable PDF guide</span><span class="price">$8.99</span></a>
+</div>
+<h3>Also making videos or a newsletter?</h3>
+<div class="product-grid">
+<a class="product-card" href="https://kimnet8.gumroad.com/l/gledqb"><img src="more/newsletter-content-sponsor-tracker.jpg" alt="Newsletter Content &amp; Sponsor Tracker" loading="lazy"><strong>Newsletter Content &amp; Sponsor Tracker</strong><span>Issue planner, growth log + printable PDF guide</span><span class="price">$8.99</span></a>
+<a class="product-card" href="https://kimnet8.gumroad.com/l/xpjxd"><img src="more/youtube-content-planner.jpg" alt="YouTube Content Planner" loading="lazy"><strong>YouTube Content Planner</strong><span>Idea-to-published video tracker + printable PDF guide</span><span class="price">$9.99</span></a>
+<a class="product-card" href="https://kimnet8.gumroad.com/l/xrffrh"><img src="more/creator-weekly-planner-printable.jpg" alt="Creator Weekly Content Planner" loading="lazy"><strong>Creator Weekly Content Planner</strong><span>One-page weekly planner for YouTubers and writers</span><span class="price">$5.99</span></a>
+</div>
+</section>
 <h3>Latest Posts</h3>
 <ul>
 <li><a href="podcast-episode-checklist.html">The Complete Podcast Episode Checklist: Idea to Publish</a> — 2026-09-07</li>

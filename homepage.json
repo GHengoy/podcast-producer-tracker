@@ -6,5 +6,73 @@
   "product_description": "A ready-to-use spreadsheet and guide for tracking episodes from idea to publish.",
   "product_image": "cover-600x600.png",
   "buy_url": "https://kimnet8.gumroad.com/l/eagpjf",
-  "buy_label": "Get the Tracker"
+  "buy_label": "Get the Tracker",
+  "more_products": [
+    {
+      "heading": "More podcast planning tools",
+      "items": [
+        {
+          "name": "Podcast Command Center Dashboard (Premium)",
+          "price": "$34.99",
+          "blurb": "All-in-one Excel & Google Sheets dashboard + PDF guide",
+          "image": "more/podcast-command-center-premium.jpg",
+          "url": "https://kimnet8.gumroad.com/l/ycqngv"
+        },
+        {
+          "name": "Podcast Producer Complete Planning Kit",
+          "price": "$29.99",
+          "blurb": "4 trackers: Excel & Google Sheets + PDF guides",
+          "image": "more/podcast-producer-complete-kit.jpg",
+          "url": "https://kimnet8.gumroad.com/l/sztjbn"
+        },
+        {
+          "name": "Podcast Content Calendar",
+          "price": "$9.99",
+          "blurb": "12-month episode planner + printable PDF guide",
+          "image": "more/podcast-content-calendar.jpg",
+          "url": "https://kimnet8.gumroad.com/l/qyiqx"
+        },
+        {
+          "name": "Podcast Guest Outreach Tracker",
+          "price": "$8.99",
+          "blurb": "Excel & Google Sheets tracker + printable PDF guide",
+          "image": "more/podcast-guest-outreach-tracker.jpg",
+          "url": "https://kimnet8.gumroad.com/l/xqtwt"
+        },
+        {
+          "name": "Podcast Sponsor & Revenue Tracker",
+          "price": "$8.99",
+          "blurb": "Excel & Google Sheets tracker + printable PDF guide",
+          "image": "more/podcast-sponsor-revenue-tracker.jpg",
+          "url": "https://kimnet8.gumroad.com/l/bsqxojt"
+        }
+      ]
+    },
+    {
+      "heading": "Also making videos or a newsletter?",
+      "items": [
+        {
+          "name": "Newsletter Content & Sponsor Tracker",
+          "price": "$8.99",
+          "blurb": "Issue planner, growth log + printable PDF guide",
+          "image": "more/newsletter-content-sponsor-tracker.jpg",
+          "url": "https://kimnet8.gumroad.com/l/gledqb"
+        },
+        {
+          "name": "YouTube Content Planner",
+          "price": "$9.99",
+          "blurb": "Idea-to-published video tracker + printable PDF guide",
+          "image": "more/youtube-content-planner.jpg",
+          "url": "https://kimnet8.gumroad.com/l/xpjxd"
+        },
+        {
+          "name": "Creator Weekly Content Planner",
+          "price": "$5.99",
+          "blurb": "One-page weekly planner for YouTubers and writers",
+          "image": "more/creator-weekly-planner-printable.jpg",
+          "url": "https://kimnet8.gumroad.com/l/xrffrh"
+        }
+      ]
+    }
+  ]
 }

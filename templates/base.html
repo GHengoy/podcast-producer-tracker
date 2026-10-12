@@ -17,6 +17,12 @@
   .product-box img { max-width: 200px; display: block; margin-bottom: 1rem; }
   .buy-button { display: inline-block; background: #0a5; color: #fff; padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: bold; }
   .buy-button:hover { background: #084; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0 2rem; }
+  .product-card { display: flex; flex-direction: column; gap: 0.25rem; border: 1px solid #ddd; border-radius: 8px; padding: 0.75rem; color: #222; text-decoration: none; font-size: 0.9rem; line-height: 1.35; }
+  .product-card:hover { border-color: #0a5; }
+  .product-card img { width: 100%; height: auto; border-radius: 4px; }
+  .product-card span { color: #666; }
+  .product-card .price { color: #0a5; font-weight: bold; }
 </style>
 </head>
 <body>

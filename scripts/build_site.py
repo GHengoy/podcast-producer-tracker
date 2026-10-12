@@ -77,10 +77,34 @@ def render_post(template: str, post: dict, head_meta: str = "") -> str:
     )
 
 
+def render_more_products(groups: list[dict]) -> str:
+    """Render the homepage 'more products' section: one heading + card grid per group of related products."""
+    def esc(value: str) -> str:
+        return html.escape(value, quote=True)
+
+    if not groups:
+        return ""
+    parts = ['<section class="more-products">\n']
+    for group in groups:
+        parts.append(f'<h3>{esc(group["heading"])}</h3>\n<div class="product-grid">\n')
+        for item in group["items"]:
+            parts.append(
+                f'<a class="product-card" href="{esc(item["url"])}">'
+                f'<img src="{esc(item["image"])}" alt="{esc(item["name"])}" loading="lazy">'
+                f'<strong>{esc(item["name"])}</strong>'
+                f'<span>{esc(item["blurb"])}</span>'
+                f'<span class="price">{esc(item["price"])}</span></a>\n'
+            )
+        parts.append("</div>\n")
+    parts.append("</section>\n")
+    return "".join(parts)
+
+
 def render_hero(config: dict) -> str:
     """Render the homepage hero + product highlight block from a homepage.json config dict.
 
     The buy button opens a Paddle overlay checkout when 'paddle_price_id' is set, otherwise links to 'buy_url'.
+    An optional 'more_products' list adds a related-products section below the main product.
     """
     if config.get("paddle_price_id"):
         buy_attrs = f'href="#" data-paddle-price-id="{config["paddle_price_id"]}"'
@@ -95,6 +119,7 @@ def render_hero(config: dict) -> str:
         f'<p>{config["product_description"]}</p>\n'
         f'<p><a class="buy-button" {buy_attrs}>{config["buy_label"]}</a></p>\n'
         f'</div>\n'
+        f'{render_more_products(config.get("more_products", []))}'
         f'<h3>Latest Posts</h3>\n'
     )
 
@@ -161,6 +186,12 @@ def build_site(posts_dir: Path, template_path: Path, output_dir: Path) -> list[P
         image_dest = output_dir / image_name
         image_dest.write_bytes(image_bytes)
         written.append(image_dest)
+        for group in homepage_config.get("more_products", []):
+            for item in group["items"]:
+                thumb_dest = output_dir / item["image"]
+                thumb_dest.parent.mkdir(parents=True, exist_ok=True)
+                thumb_dest.write_bytes((posts_dir.parent / "product" / item["image"]).read_bytes())
+                written.append(thumb_dest)
 
     if base_url:
         sitemap_xml = render_sitemap(posts, base_url)
