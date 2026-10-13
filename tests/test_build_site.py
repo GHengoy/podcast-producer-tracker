@@ -119,7 +119,7 @@ class TestBuildSite(unittest.TestCase):
 
     def test_render_index_with_hero_html_prepends_before_list(self):
         html = render_index(TEMPLATE, [{"slug": "a", "title": "A", "date": "2026-08-20", "body": ""}], hero_html="<div>HERO</div>")
-        self.assertLess(html.index("HERO"), html.index("<ul>"))
+        self.assertLess(html.index("HERO"), html.index('<ul class="post-list">'))
 
     def test_build_site_with_homepage_json_copies_image_and_includes_hero(self):
         from build_site import load_homepage_config

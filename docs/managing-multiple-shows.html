@@ -10,91 +10,249 @@
 <meta property="og:title" content="Managing Multiple Podcast Shows Without Burning Out">
 <meta property="og:description" content="How to run two or more podcasts without burning out: systems for tracking episodes, deadlines, and guests across multiple shows.">
 <meta property="og:url" content="https://ghengoy.github.io/podcast-producer-tracker/managing-multiple-shows.html">
-<meta property="og:image" content="https://ghengoy.github.io/podcast-producer-tracker/cover-600x600.png">
+<meta property="og:image" content="https://ghengoy.github.io/podcast-producer-tracker/images/hero/managing-multiple-shows.jpg">
 <meta name="p:domain_verify" content="ed2ca7fb71cecfffeba5d895002ee1d1"/>
 <script data-goatcounter="https://ghengoy.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <style>
-  body { font-family: -apple-system, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #222; }
-  a { color: #0a5; }
-  header, footer { font-size: 0.9rem; color: #666; }
-  nav a { margin-right: 1rem; }
-  article h2 { font-size: 1.6rem; }
-  .product-box { border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
-  .product-box img { max-width: 200px; display: block; margin-bottom: 1rem; }
-  .buy-button { display: inline-block; background: #0a5; color: #fff; padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: bold; }
-  .buy-button:hover { background: #084; }
-  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0 2rem; }
-  .product-card { display: flex; flex-direction: column; gap: 0.25rem; border: 1px solid #ddd; border-radius: 8px; padding: 0.75rem; color: #222; text-decoration: none; font-size: 0.9rem; line-height: 1.35; }
-  .product-card:hover { border-color: #0a5; }
-  .product-card img { width: 100%; height: auto; border-radius: 4px; }
-  .product-card span { color: #666; }
-  .product-card .price { color: #0a5; font-weight: bold; }
+  :root { --accent: #4A306D; --accent-dark: #32204A; --tint: #F1ECF7; --ink: #1f2328; --muted: #5d6470;
+          --line: #e4e1da; --paper: #fbfaf7; --card: #ffffff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+         font-size: 18px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { color: var(--accent-dark); }
+  img { max-width: 100%; height: auto; }
+  .site-header { background: var(--card); border-bottom: 1px solid var(--line); }
+  .site-header .inner { max-width: 760px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { font-weight: 700; color: var(--ink); text-decoration: none; font-size: 17px; display: flex; align-items: center; gap: 10px; }
+  .brand-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); display: inline-block; position: relative; }
+  .brand-mark::after { content: ""; position: absolute; left: 7px; top: 8px; width: 14px; height: 3px; background: #fff; border-radius: 2px;
+                       box-shadow: 0 5px 0 #fff, 0 10px 0 rgba(255,255,255,.6); }
+  .site-header nav { display: flex; gap: 18px; font-size: 15px; }
+  .site-header nav a { color: var(--muted); text-decoration: none; }
+  .site-header nav a:hover { color: var(--accent); }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 56px; }
+  article > h1, main > h1 { font-size: clamp(30px, 5vw, 42px); line-height: 1.2; letter-spacing: -0.02em; margin: 8px 0 12px; }
+  h2 { font-size: 27px; line-height: 1.3; letter-spacing: -0.01em; margin: 52px 0 14px; padding-top: 6px; scroll-margin-top: 16px; }
+  h3 { font-size: 21px; line-height: 1.35; margin: 32px 0 8px; }
+  p { margin: 0 0 20px; }
+  ul, ol { padding-left: 1.3em; margin: 0 0 22px; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 650; }
+  .pillar-link { font-size: 15px; margin: 0 0 4px; }
+  .pillar-link a { text-decoration: none; }
+  .post-meta { color: var(--muted); font-size: 15px; margin: 0 0 24px; }
+  .post-hero { margin: 0 0 28px; }
+  .post-hero img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; display: block; background: var(--tint); }
+  figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  figcaption a { color: var(--muted); }
+  .toc { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px 8px; margin: 0 0 32px; font-size: 16px; }
+  .toc-title { font-weight: 700; margin: 0 0 8px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .toc ol { margin: 0 0 10px; }
+  .toc li { margin-bottom: 4px; }
+  .toc a { text-decoration: none; }
+  .key-takeaways, .callout { border-radius: 12px; padding: 20px 24px 6px; margin: 0 0 30px; }
+  .key-takeaways { background: var(--tint); border-left: 5px solid var(--accent); }
+  .key-takeaways ul { margin-bottom: 14px; }
+  .box-title { font-weight: 700; margin: 0 0 8px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent-dark); }
+  .callout { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--accent); }
+  .callout.note { border-left-color: #b7791f; }
+  .callout.note .box-title { color: #8a5a12; }
+  .steps { list-style: none; counter-reset: step; padding-left: 0; }
+  .steps > li { counter-increment: step; position: relative; padding-left: 52px; margin-bottom: 18px; }
+  .steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%;
+                        background: var(--accent); color: #fff; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .table-wrap { overflow-x: auto; margin: 0 0 28px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 16px; line-height: 1.5; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--tint); color: var(--accent-dark); font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+  .pin-figure { margin: 36px auto; max-width: 400px; text-align: center; }
+  .pin-figure img { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.12); display: block; }
+  blockquote { margin: 0 0 24px; padding: 4px 0 4px 20px; border-left: 3px solid var(--line); color: var(--muted); font-style: italic; }
+  .post-cta { display: flex; gap: 24px; align-items: center; background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--accent);
+              border-radius: 14px; padding: 24px; margin: 48px 0 8px; }
+  .post-cta img { width: 150px; border-radius: 10px; flex-shrink: 0; }
+  .post-cta h3 { margin: 2px 0 6px; }
+  .post-cta p { margin-bottom: 12px; font-size: 16px; }
+  .cta-kicker { font-size: 13px !important; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 !important; }
+  .buy-button { display: inline-block; background: var(--accent); color: #fff !important; padding: 12px 22px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px; }
+  .buy-button:hover { background: var(--accent-dark); }
+  .product-box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin: 24px 0 36px; display: grid; grid-template-columns: 200px 1fr; gap: 0 24px; align-items: center; }
+  .product-box img { width: 200px; border-radius: 10px; grid-row: span 3; }
+  .product-box h3 { margin: 0 0 6px; }
+  .product-box p { margin-bottom: 12px; font-size: 16px; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin: 12px 0 36px; }
+  .product-card { display: flex; flex-direction: column; gap: 4px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; color: var(--ink); text-decoration: none; font-size: 15px; line-height: 1.4; }
+  .product-card:hover { border-color: var(--accent); }
+  .product-card img { width: 100%; border-radius: 8px; margin-bottom: 4px; }
+  .product-card span { color: var(--muted); }
+  .product-card .price { color: var(--accent); font-weight: 700; }
+  .post-list { list-style: none; padding: 0; display: grid; gap: 16px; }
+  .post-list li { margin: 0; }
+  .post-card { display: flex; gap: 18px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; color: var(--ink); text-decoration: none; }
+  .post-card:hover { border-color: var(--accent); }
+  .post-card img { width: 200px; object-fit: cover; flex-shrink: 0; background: var(--tint); }
+  .post-card-text { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px 16px 0; }
+  .post-card-text strong { font-size: 19px; line-height: 1.35; }
+  .post-card-desc { color: var(--muted); font-size: 15px; line-height: 1.55; }
+  .post-card-date { color: var(--muted); font-size: 13px; }
+  .site-footer { border-top: 1px solid var(--line); background: var(--card); color: var(--muted); font-size: 15px; }
+  .site-footer .inner { max-width: 760px; margin: 0 auto; padding: 28px 20px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .site-footer p { margin: 0; }
+  @media (max-width: 600px) {
+    body { font-size: 17px; }
+    h2 { font-size: 23px; margin-top: 40px; }
+    .post-cta, .post-card { flex-direction: column; }
+    .post-cta img { width: 120px; }
+    .post-card img { width: 100%; aspect-ratio: 16 / 9; }
+    .post-card-text { padding: 0 16px 16px; }
+    .product-box { grid-template-columns: 1fr; }
+    .product-box img { grid-row: auto; margin-bottom: 12px; }
+  }
 </style>
 </head>
 <body>
-<header><nav><a href="index.html">Home</a></nav></header>
+<header class="site-header"><div class="inner">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Podcast Production</a>
+<nav><a href="index.html">Guides</a><a href="pillar-guide.html">Start here</a></nav>
+</div></header>
+<main>
 <article>
 <h1>Managing Multiple Podcast Shows Without Burning Out</h1>
-<p class="date">2026-08-11</p>
 <p class="pillar-link"><a href="pillar-guide.html">&larr; Back to the Complete Podcast Production Guide</a></p>
+<p class="post-meta"><time datetime="2026-08-11">August 11, 2026</time> &middot; 5 min read</p>
+<figure class="post-hero"><img src="images/hero/managing-multiple-shows.jpg" alt="Round table set up with several microphones for a group podcast recording" width="1200" height="675"><figcaption>Photo: <a href="https://www.flickr.com/photos/70816538@N00/585217250" rel="nofollow">TimWilson</a>, <a href="https://creativecommons.org/licenses/by/2.0/" rel="license nofollow">CC BY 2.0</a></figcaption></figure>
+<div class="key-takeaways">
+<p class="box-title">Key takeaways</p>
+<ul>
+<li><strong>One tracker, not three:</strong> keep every show in a single tracker with a "Show" column.</li>
+<li><strong>Two views:</strong> filter by show to focus on one pipeline; view all shows together to manage capacity.</li>
+<li><strong>Name the show every time:</strong> in guest confirmations and sponsor deals, so nobody preps for the wrong show or pays for the wrong audience.</li>
+<li><strong>Count your load:</strong> a unified view shows when "a couple of shows" is really 8-10 recordings a month.</li>
+</ul>
+</div>
+<nav class="toc" aria-label="Contents"><p class="toc-title">In this guide</p>
+<ol>
+<li><a href="#the-multi-show-challenge">The Multi-Show Challenge</a></li>
+<li><a href="#the-unified-tracking-solution">The Unified Tracking Solution</a></li>
+<li><a href="#workflows-for-multi-show-management">Workflows for Multi-Show Management</a></li>
+<li><a href="#capacity-and-burnout-prevention">Capacity and Burnout Prevention</a></li>
+<li><a href="#scaling-sustainably">Scaling Sustainably</a></li>
+</ol></nav>
+<p>Running one podcast is manageable. Running two is double the work, but many successful creators do it. Running three or more becomes impossible without systematic tracking.</p>
 
-<p>Running one podcast is manageable. Running two is double the work, but many successful creators do it. Running three or more becomes impossible without systematic tracking. The problem isn't the content creation itself—it's keeping track of who's supposed to appear on which show, when each show records, which deadlines belong to which podcast, and which sponsorship deals are tied to which audience.</p>
+<p>The problem isn't the content creation itself. It's keeping track of who's appearing on which show, when each show records, which deadlines belong to which podcast, and which sponsorship deals are tied to which audience.</p>
 
-<p>Podcasters often drift into running multiple shows organically. You launch your main show. It gets an audience. Listeners ask for a bonus spin-off. You launch that. Then you get invited to co-host someone else's show. Suddenly you're managing three separate publication schedules, three separate guest pipelines, and three separate production timelines. Without organization, the workload explodes and quality drops.</p>
+<p>Podcasters often drift into running multiple shows organically. You launch your main show and it gets an audience. Listeners ask for a bonus spin-off, so you launch that. Then you get invited to co-host someone else's show. Suddenly you're managing three separate publication schedules, guest pipelines, and production timelines. Without organization, the workload explodes and quality drops.</p>
 
-<h2>The Multi-Show Challenge</h2>
+<h2 id="the-multi-show-challenge">The Multi-Show Challenge</h2>
 
-<p>Each show has its own requirements. Show A publishes weekly on Mondays. Show B publishes bi-weekly on Thursdays. Show C is a guest co-hosting project with a chaotic monthly schedule. Each show has different guests, different sponsorships, different recording formats. If you're tracking everything in separate spreadsheets or worse, in scattered email, you spend half your time context-switching and remembering which details belong to which show.</p>
+<p>Each show has its own requirements:</p>
 
-<p>More critically, guests get confused. You tell a guest they're recording on Tuesday at 2pm, but forget to specify which show. They show up, and you realize they're prepped for Show A when you were scheduling them for Show C. Email confirmations become novel-length as you clarify "Show A, not the other one." Recording sessions start late because of miscommunication. Listener trust erodes because episodes aren't consistent across the portfolio.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Show</th><th>Schedule</th></tr></thead>
+<tbody>
+<tr><td>Show A</td><td>Weekly, Mondays</td></tr>
+<tr><td>Show B</td><td>Bi-weekly, Thursdays</td></tr>
+<tr><td>Show C</td><td>Guest co-hosting project with a chaotic monthly schedule</td></tr>
+</tbody>
+</table>
+</div>
 
-<p>Sponsors also get frustrated. A sponsor gives you $1000 to run ads on "your main show," but your main show is ambiguous if you're running three. Are they paying for Show A, Show B, or both? When do their ads run? If they run ads across the wrong show, they reach the wrong audience and get no conversions. They blame you. They don't sponsor again.</p>
+<p>Each show also has different guests, different sponsorships, and different recording formats. If you track everything in separate spreadsheets, or worse, in scattered email, you spend half your time context-switching and remembering which details belong to which show.</p>
 
-<h2>The Unified Tracking Solution</h2>
+<h3>Guests get confused</h3>
 
-<p>The solution is a single tracker for all shows, with a column that identifies which show each episode belongs to. Now you can sort by show and see the pipeline for each one independently, or see all shows at once to manage capacity.</p>
+<p>You tell a guest they're recording on Tuesday at 2pm, but forget to specify which show. They show up prepped for Show A when you were scheduling them for Show C. The fallout:</p>
 
-<p><strong>Example view—all shows together:</strong></p>
+<ul>
+<li>Email confirmations become novel-length as you clarify "Show A, not the other one."</li>
+<li>Recording sessions start late because of miscommunication.</li>
+<li>Listener trust erodes because episodes aren't consistent across the portfolio.</li>
+</ul>
 
-<p>Episode 45 (Show A): Records Tuesday, Publishes Monday next week</p>
+<h3>Sponsors get frustrated</h3>
 
-<p>Episode 10 (Show B): Records Wednesday, Publishes Saturday</p>
+<p>A sponsor gives you $1000 to run ads on "your main show," but "main show" is ambiguous if you're running three. Are they paying for Show A, Show B, or both? When do their ads run?</p>
 
-<p>Episode 2 (Show C): Records two weeks out, Publishes unknown</p>
+<div class="callout note">
+<p class="box-title">The cost of the wrong show</p>
+<p>If ads run on the wrong show, they reach the wrong audience and get no conversions. The sponsor blames you and doesn't sponsor again.</p>
+</div>
 
-<p>From this view, you can see Tuesday's recording schedule is locked. Wednesday's open but will get filled. You have capacity to do two recordings this week without doubling up on a single day.</p>
+<h2 id="the-unified-tracking-solution">The Unified Tracking Solution</h2>
 
-<p><strong>Example view—filtered to Show A only:</strong></p>
+<p>The solution is a single tracker for all shows, with a column that identifies which show each episode belongs to. Now you can sort by show and see each pipeline independently, or see all shows at once to manage capacity.</p>
 
-<p>You see Show A's next five episodes, which guests are confirmed, which deadlines are coming up, and which episodes need sponsorship details added. The co-host of Show A can also view this filtered list without seeing the noise of Shows B and C.</p>
+<h3>View 1: all shows together</h3>
 
-<h2>Specific Workflows for Multi-Show Management</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Episode</th><th>Show</th><th>Records</th><th>Publishes</th></tr></thead>
+<tbody>
+<tr><td>Episode 45</td><td>Show A</td><td>Tuesday</td><td>Monday next week</td></tr>
+<tr><td>Episode 10</td><td>Show B</td><td>Wednesday</td><td>Saturday</td></tr>
+<tr><td>Episode 2</td><td>Show C</td><td>Two weeks out</td><td>Unknown</td></tr>
+</tbody>
+</table>
+</div>
 
-<p><strong>Weekly standup:</strong> Monday morning, filter the tracker by show. Spend five minutes reviewing Show A's pipeline, five minutes on Show B, five minutes on Show C. You know exactly what's happening across your portfolio and spot conflicts immediately.</p>
+<p>From this view, you can see Tuesday's recording schedule is locked. Wednesday's open but will get filled. You have capacity for two recordings this week without doubling up on a single day.</p>
 
-<p><strong>Guest confirmation:</strong> When a guest confirms, you specify which show they're appearing on. Their email now has "Confirmed for Show A, Episode 47, Tuesday at 2pm" instead of ambiguous language. No confusion. They show up prepped for the right show.</p>
+<h3>View 2: filtered to Show A only</h3>
 
-<p><strong>Recording scheduling:</strong> You can see which days have existing recordings scheduled and which are free. You never double-book yourself because the tracker shows all shows in one view. You also see "I've got three Show A recordings this month and only one Show C. Let me balance the pipeline."</p>
+<p>You see Show A's next five episodes, which guests are confirmed, which deadlines are coming up, and which episodes need sponsorship details added. Show A's co-host can view this filtered list without the noise of Shows B and C.</p>
 
-<p><strong>Sponsorship management:</strong> When a sponsor gives you money, you specify which show(s) they're sponsoring. Their ads appear on those episodes. You can see "Show A has Acme as sponsor for Episodes 40-42" and "Show B has Acme as sponsor for Episodes 15-17" simultaneously. Different audiences, separate commitments, clear tracking.</p>
+<h2 id="workflows-for-multi-show-management">Workflows for Multi-Show Management</h2>
 
-<p><strong>Publication scheduling:</strong> You know Show A publishes Mondays, Show B publishes Thursdays, Show C is monthly. You set publish dates accordingly and work backwards from each deadline. Your release calendar is visible and conflicts are obvious before they happen.</p>
+<ul>
+<li><strong>Weekly standup.</strong> Monday morning, filter the tracker by show. Spend five minutes each on Show A, Show B, and Show C. You know exactly what's happening across your portfolio and spot conflicts immediately.</li>
+<li><strong>Guest confirmation.</strong> When a guest confirms, specify the show. Their email says "Confirmed for Show A, Episode 47, Tuesday at 2pm" instead of ambiguous language. They show up prepped for the right show.</li>
+<li><strong>Recording scheduling.</strong> All shows are in one view, so you see which days are booked and never double-book yourself. You also notice imbalances: "Three Show A recordings this month and only one Show C. Let me balance the pipeline."</li>
+<li><strong>Sponsorship management.</strong> Record which show(s) each sponsor is paying for. You can see "Show A has Acme for Episodes 40-42" and "Show B has Acme for Episodes 15-17" side by side. Different audiences, separate commitments, clear tracking.</li>
+<li><strong>Publication scheduling.</strong> Show A publishes Mondays, Show B Thursdays, Show C monthly. Set publish dates accordingly and work backwards from each deadline. Conflicts are obvious before they happen.</li>
+</ul>
 
-<h2>Capacity and Burnout Prevention</h2>
+<figure class="pin-figure">
+<img src="images/pins/managing-multiple-shows.jpg" alt="Infographic: five tips for running multiple podcasts without burning out, from using one tracker for every show to assigning sponsors to specific shows" width="600" height="900" loading="lazy">
+<figcaption>Save this summary to Pinterest for later.</figcaption>
+</figure>
 
-<p>Multi-show tracking prevents the most dangerous problem: taking on too much. Without a unified view, you mentally feel like you're doing "a couple shows" when you're actually recording 8-10 episodes a month. You feel exhausted but don't understand why. With tracking, you see exactly how many recording sessions you're committing to. If it's unsustainable, you spot it and adjust before burning out.</p>
+<h2 id="capacity-and-burnout-prevention">Capacity and Burnout Prevention</h2>
 
-<p>You can say to a new guest or sponsor: "I'm running three shows on this schedule. Here's capacity available." You can show them the tracker and prove you're serious and organized. That professionalism leads to better guest matches and higher sponsorship rates.</p>
+<p>Multi-show tracking prevents the most dangerous problem: taking on too much. Without a unified view, you feel like you're doing "a couple shows" when you're actually recording 8-10 episodes a month. You feel exhausted but don't understand why.</p>
 
-<h2>Scaling Sustainably</h2>
+<p>With tracking, you see exactly how many recording sessions you're committing to. If it's unsustainable, you spot it and adjust before burning out.</p>
 
-<p>The only way to scale to multiple shows sustainably is to stop tracking shows separately and start tracking them together. One unified system for all shows prevents context-switching, eliminates confusion, and lets you manage capacity intelligently.</p>
+<div class="callout tip">
+<p class="box-title">Use the tracker in conversations</p>
+<p>You can tell a new guest or sponsor: "I'm running three shows on this schedule. Here's the capacity available." Showing them the tracker proves you're serious and organized. That professionalism leads to better guest matches and higher sponsorship rates.</p>
+</div>
 
-<p>The Podcast Producer & Episode Management Tracker supports this perfectly. Add a "Show" column, filter by show when you need to focus on one, and view all shows together when you're planning capacity. Multi-show management becomes organized instead of chaotic.</p>
+<h2 id="scaling-sustainably">Scaling Sustainably</h2>
+
+<p>The only way to scale to multiple shows sustainably is to stop tracking shows separately and start tracking them together. One unified system prevents context-switching, eliminates confusion, and lets you manage capacity intelligently.</p>
+
+<p>The Podcast Producer &amp; Episode Management Tracker supports this perfectly. Add a "Show" column, filter by show when you need to focus on one, and view all shows together when you're planning capacity. Multi-show management becomes organized instead of chaotic.</p>
 
 <p>If you're running multiple podcasts or thinking about launching a second show, start with proper tracking. Get the <a href="https://kimnet8.gumroad.com/l/eagpjf">Podcast Producer & Episode Management Tracker</a> and manage multiple shows sustainably.</p>
 
+<aside class="post-cta">
+<img src="cover-600x600.png" alt="Podcast Producer & Episode Management Tracker" loading="lazy">
+<div><p class="cta-kicker">Make it easy to keep track</p>
+<h3>Podcast Producer & Episode Management Tracker</h3>
+<p>A ready-to-use spreadsheet and guide for tracking episodes from idea to publish.</p>
+<p><a class="buy-button" href="https://kimnet8.gumroad.com/l/eagpjf">Get the Tracker &middot; $19.99</a></p></div>
+</aside>
+
 </article>
-<footer><p><a href="https://podcast-producer-tracker.beehiiv.com/subscribe">Subscribe for an email when new posts go live</a></p><p>&copy; 2026</p></footer>
+</main>
+<footer class="site-footer"><div class="inner">
+<p><a href="https://podcast-producer-tracker.beehiiv.com/subscribe">Get an email when new guides go live</a></p>
+<p>&copy; 2026 SimpleTrackers</p>
+</div></footer>
 </body>
 </html>

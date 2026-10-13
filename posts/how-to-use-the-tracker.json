@@ -1,1 +1,13 @@
-{"title": "How to Use the Podcast Tracker: A Walkthrough of Columns and Daily Workflows", "date": "2026-08-15", "description": "A walkthrough of the Podcast Producer & Episode Management Tracker's columns and the daily workflows that keep every episode on track."}
+{
+  "title": "How to Use the Podcast Tracker: A Walkthrough of Columns and Daily Workflows",
+  "date": "2026-08-15",
+  "description": "A walkthrough of the Podcast Producer & Episode Management Tracker's columns and the daily workflows that keep every episode on track.",
+  "hero": {
+    "src": "images/hero/how-to-use-the-tracker.jpg",
+    "alt": "Person checking a phone at a wooden desk with a laptop and notebook",
+    "credit": "Image Catalog",
+    "credit_url": "https://www.flickr.com/photos/132795455@N08/18692171181",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

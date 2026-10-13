@@ -1,1 +1,13 @@
-{"title": "Podcast Production Essentials: Tools That Keep Your Operation Organized", "date": "2026-08-26", "description": "Tools and workspace essentials that keep a podcast operation organized, from planning and scheduling to managing episodes and sponsors."}
+{
+  "title": "Podcast Production Essentials: Tools That Keep Your Operation Organized",
+  "date": "2026-08-26",
+  "description": "Tools and workspace essentials that keep a podcast operation organized, from planning and scheduling to managing episodes and sponsors.",
+  "hero": {
+    "src": "images/hero/podcast-production-essentials.jpg",
+    "alt": "Two studio microphones on stands with headphones resting on a stool",
+    "credit": "bradjavernick",
+    "credit_url": "https://www.flickr.com/photos/156466858@N02/32861871107",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/"
+  }
+}

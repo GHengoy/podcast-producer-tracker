@@ -1,1 +1,13 @@
-{"title": "Why Episode Tracking Matters: The Real Cost of Disorganized Podcast Production", "date": "2026-08-21", "description": "The real cost of disorganized podcast production, from missed guest follow-ups to lost sponsor revenue, and why episode tracking fixes it."}
+{
+  "title": "Why Episode Tracking Matters: The Real Cost of Disorganized Podcast Production",
+  "date": "2026-08-21",
+  "description": "The real cost of disorganized podcast production, from missed guest follow-ups to lost sponsor revenue, and why episode tracking fixes it.",
+  "hero": {
+    "src": "images/hero/why-episode-tracking-matters.jpg",
+    "alt": "Headphones and a portable recorder plugged into a small laptop",
+    "credit": "pixelsebi",
+    "credit_url": "https://www.flickr.com/photos/71599632@N00/3867544260",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/"
+  }
+}

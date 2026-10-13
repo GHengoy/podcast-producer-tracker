@@ -10,97 +10,299 @@
 <meta property="og:title" content="Episode Tracking FAQ: Your Questions Answered">
 <meta property="og:description" content="Answers to the questions podcasters ask most about organizing a show: what to track per episode, how to handle guests, and keeping deadlines on schedule.">
 <meta property="og:url" content="https://ghengoy.github.io/podcast-producer-tracker/episode-tracking-faq.html">
-<meta property="og:image" content="https://ghengoy.github.io/podcast-producer-tracker/cover-600x600.png">
+<meta property="og:image" content="https://ghengoy.github.io/podcast-producer-tracker/images/hero/episode-tracking-faq.jpg">
 <meta name="p:domain_verify" content="ed2ca7fb71cecfffeba5d895002ee1d1"/>
 <script data-goatcounter="https://ghengoy.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <style>
-  body { font-family: -apple-system, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #222; }
-  a { color: #0a5; }
-  header, footer { font-size: 0.9rem; color: #666; }
-  nav a { margin-right: 1rem; }
-  article h2 { font-size: 1.6rem; }
-  .product-box { border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
-  .product-box img { max-width: 200px; display: block; margin-bottom: 1rem; }
-  .buy-button { display: inline-block; background: #0a5; color: #fff; padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: bold; }
-  .buy-button:hover { background: #084; }
-  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0 2rem; }
-  .product-card { display: flex; flex-direction: column; gap: 0.25rem; border: 1px solid #ddd; border-radius: 8px; padding: 0.75rem; color: #222; text-decoration: none; font-size: 0.9rem; line-height: 1.35; }
-  .product-card:hover { border-color: #0a5; }
-  .product-card img { width: 100%; height: auto; border-radius: 4px; }
-  .product-card span { color: #666; }
-  .product-card .price { color: #0a5; font-weight: bold; }
+  :root { --accent: #4A306D; --accent-dark: #32204A; --tint: #F1ECF7; --ink: #1f2328; --muted: #5d6470;
+          --line: #e4e1da; --paper: #fbfaf7; --card: #ffffff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+         font-size: 18px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { color: var(--accent-dark); }
+  img { max-width: 100%; height: auto; }
+  .site-header { background: var(--card); border-bottom: 1px solid var(--line); }
+  .site-header .inner { max-width: 760px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { font-weight: 700; color: var(--ink); text-decoration: none; font-size: 17px; display: flex; align-items: center; gap: 10px; }
+  .brand-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); display: inline-block; position: relative; }
+  .brand-mark::after { content: ""; position: absolute; left: 7px; top: 8px; width: 14px; height: 3px; background: #fff; border-radius: 2px;
+                       box-shadow: 0 5px 0 #fff, 0 10px 0 rgba(255,255,255,.6); }
+  .site-header nav { display: flex; gap: 18px; font-size: 15px; }
+  .site-header nav a { color: var(--muted); text-decoration: none; }
+  .site-header nav a:hover { color: var(--accent); }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 56px; }
+  article > h1, main > h1 { font-size: clamp(30px, 5vw, 42px); line-height: 1.2; letter-spacing: -0.02em; margin: 8px 0 12px; }
+  h2 { font-size: 27px; line-height: 1.3; letter-spacing: -0.01em; margin: 52px 0 14px; padding-top: 6px; scroll-margin-top: 16px; }
+  h3 { font-size: 21px; line-height: 1.35; margin: 32px 0 8px; }
+  p { margin: 0 0 20px; }
+  ul, ol { padding-left: 1.3em; margin: 0 0 22px; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 650; }
+  .pillar-link { font-size: 15px; margin: 0 0 4px; }
+  .pillar-link a { text-decoration: none; }
+  .post-meta { color: var(--muted); font-size: 15px; margin: 0 0 24px; }
+  .post-hero { margin: 0 0 28px; }
+  .post-hero img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; display: block; background: var(--tint); }
+  figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  figcaption a { color: var(--muted); }
+  .toc { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px 8px; margin: 0 0 32px; font-size: 16px; }
+  .toc-title { font-weight: 700; margin: 0 0 8px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .toc ol { margin: 0 0 10px; }
+  .toc li { margin-bottom: 4px; }
+  .toc a { text-decoration: none; }
+  .key-takeaways, .callout { border-radius: 12px; padding: 20px 24px 6px; margin: 0 0 30px; }
+  .key-takeaways { background: var(--tint); border-left: 5px solid var(--accent); }
+  .key-takeaways ul { margin-bottom: 14px; }
+  .box-title { font-weight: 700; margin: 0 0 8px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent-dark); }
+  .callout { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--accent); }
+  .callout.note { border-left-color: #b7791f; }
+  .callout.note .box-title { color: #8a5a12; }
+  .steps { list-style: none; counter-reset: step; padding-left: 0; }
+  .steps > li { counter-increment: step; position: relative; padding-left: 52px; margin-bottom: 18px; }
+  .steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%;
+                        background: var(--accent); color: #fff; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .table-wrap { overflow-x: auto; margin: 0 0 28px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 16px; line-height: 1.5; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--tint); color: var(--accent-dark); font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+  .pin-figure { margin: 36px auto; max-width: 400px; text-align: center; }
+  .pin-figure img { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.12); display: block; }
+  blockquote { margin: 0 0 24px; padding: 4px 0 4px 20px; border-left: 3px solid var(--line); color: var(--muted); font-style: italic; }
+  .post-cta { display: flex; gap: 24px; align-items: center; background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--accent);
+              border-radius: 14px; padding: 24px; margin: 48px 0 8px; }
+  .post-cta img { width: 150px; border-radius: 10px; flex-shrink: 0; }
+  .post-cta h3 { margin: 2px 0 6px; }
+  .post-cta p { margin-bottom: 12px; font-size: 16px; }
+  .cta-kicker { font-size: 13px !important; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 !important; }
+  .buy-button { display: inline-block; background: var(--accent); color: #fff !important; padding: 12px 22px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px; }
+  .buy-button:hover { background: var(--accent-dark); }
+  .product-box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin: 24px 0 36px; display: grid; grid-template-columns: 200px 1fr; gap: 0 24px; align-items: center; }
+  .product-box img { width: 200px; border-radius: 10px; grid-row: span 3; }
+  .product-box h3 { margin: 0 0 6px; }
+  .product-box p { margin-bottom: 12px; font-size: 16px; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin: 12px 0 36px; }
+  .product-card { display: flex; flex-direction: column; gap: 4px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; color: var(--ink); text-decoration: none; font-size: 15px; line-height: 1.4; }
+  .product-card:hover { border-color: var(--accent); }
+  .product-card img { width: 100%; border-radius: 8px; margin-bottom: 4px; }
+  .product-card span { color: var(--muted); }
+  .product-card .price { color: var(--accent); font-weight: 700; }
+  .post-list { list-style: none; padding: 0; display: grid; gap: 16px; }
+  .post-list li { margin: 0; }
+  .post-card { display: flex; gap: 18px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; color: var(--ink); text-decoration: none; }
+  .post-card:hover { border-color: var(--accent); }
+  .post-card img { width: 200px; object-fit: cover; flex-shrink: 0; background: var(--tint); }
+  .post-card-text { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px 16px 0; }
+  .post-card-text strong { font-size: 19px; line-height: 1.35; }
+  .post-card-desc { color: var(--muted); font-size: 15px; line-height: 1.55; }
+  .post-card-date { color: var(--muted); font-size: 13px; }
+  .site-footer { border-top: 1px solid var(--line); background: var(--card); color: var(--muted); font-size: 15px; }
+  .site-footer .inner { max-width: 760px; margin: 0 auto; padding: 28px 20px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .site-footer p { margin: 0; }
+  @media (max-width: 600px) {
+    body { font-size: 17px; }
+    h2 { font-size: 23px; margin-top: 40px; }
+    .post-cta, .post-card { flex-direction: column; }
+    .post-cta img { width: 120px; }
+    .post-card img { width: 100%; aspect-ratio: 16 / 9; }
+    .post-card-text { padding: 0 16px 16px; }
+    .product-box { grid-template-columns: 1fr; }
+    .product-box img { grid-row: auto; margin-bottom: 12px; }
+  }
 </style>
 </head>
 <body>
-<header><nav><a href="index.html">Home</a></nav></header>
+<header class="site-header"><div class="inner">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Podcast Production</a>
+<nav><a href="index.html">Guides</a><a href="pillar-guide.html">Start here</a></nav>
+</div></header>
+<main>
 <article>
 <h1>Episode Tracking FAQ: Your Questions Answered</h1>
-<p class="date">2026-08-09</p>
 <p class="pillar-link"><a href="pillar-guide.html">&larr; Back to the Complete Podcast Production Guide</a></p>
-
+<p class="post-meta"><time datetime="2026-08-09">August 9, 2026</time> &middot; 7 min read</p>
+<figure class="post-hero"><img src="images/hero/episode-tracking-faq.jpg" alt="Hand writing notes in an agenda next to a podcast microphone" width="1200" height="675"><figcaption>Photo: <a href="https://wordpress.org/photos/photo/4756694517/" rel="nofollow">soycelycruz</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="license nofollow">CC0</a></figcaption></figure>
+<div class="key-takeaways">
+<p class="box-title">Key takeaways</p>
+<ul>
+<li><strong>Start small:</strong> track episode number, guest, recording date, publish date and status first. Add sponsors, affiliate links and promotion later.</li>
+<li><strong>Plan 8-12 weeks ahead:</strong> a rolling 12-week view lets you spot conflicts before they hit, without locking dates too far out.</li>
+<li><strong>It takes minutes:</strong> about five to ten minutes of updates per episode saves hours of searching email.</li>
+<li><strong>Know it's working:</strong> you hit every publish date, can answer "where is episode X?" in ten seconds, and never search email for guest details.</li>
+</ul>
+</div>
+<nav class="toc" aria-label="Contents"><p class="toc-title">In this guide</p>
+<ol>
+<li><a href="#do-i-really-need-to-track-all-these-details">Do I Really Need to Track All These Details?</a></li>
+<li><a href="#how-far-in-advance-should-i-plan-episodes">How Far in Advance Should I Plan Episodes?</a></li>
+<li><a href="#what-if-a-guest-cancels-last-minute">What If a Guest Cancels Last Minute?</a></li>
+<li><a href="#how-do-i-handle-sponsorships-if-i-don-t-have-many">How Do I Handle Sponsorships If I Don't Have Many?</a></li>
+<li><a href="#can-i-use-google-sheets-or-do-i-need-special-software">Can I Use Google Sheets or Do I Need Special Software?</a></li>
+<li><a href="#how-much-time-does-tracking-actually-take">How Much Time Does Tracking Actually Take?</a></li>
+<li><a href="#what-if-i-m-behind-on-publishing-does-tracking-help">What If I'm Behind on Publishing? Does Tracking Help?</a></li>
+<li><a href="#should-i-track-listener-numbers">Should I Track Listener Numbers?</a></li>
+<li><a href="#what-s-the-minimum-viable-tracker">What's the Minimum Viable Tracker?</a></li>
+<li><a href="#how-do-i-know-if-my-tracking-system-is-working">How Do I Know If My Tracking System Is Working?</a></li>
+<li><a href="#getting-started-today">Getting Started Today</a></li>
+</ol></nav>
 <p>As we talk with podcasters about organizing their shows, similar questions come up repeatedly. Here are the most common ones and the answers that work for successful shows.</p>
 
-<h2>Do I Really Need to Track All These Details?</h2>
+<h2 id="do-i-really-need-to-track-all-these-details">Do I Really Need to Track All These Details?</h2>
 
-<p>Short answer: yes, but you can start small. You don't need to fill in every column from day one. Start with the essentials: episode number, guest name, recording date, publish date, and confirmation status. Once those become routine, add sponsorship details and affiliate links. Add promotion status after publishing is locked down. Build the system in phases as your show grows.</p>
+<p>Short answer: yes, but you can start small. You don't need to fill in every column from day one. Build the system in phases as your show grows.</p>
 
-<p>That said, the more detail you track, the more insight you gain. Halfway through the year, you'll have data on which episodes took longest to edit, which guests became regular contributors, which sponsorships converted well. That data is gold for scaling your show. So while you can start small, plan to expand tracking over time.</p>
+<ol class="steps">
+<li><strong>Start with the essentials.</strong> Episode number, guest name, recording date, publish date, and confirmation status.</li>
+<li><strong>Add revenue details.</strong> Once those become routine, add sponsorship details and affiliate links.</li>
+<li><strong>Add promotion.</strong> Track promotion status after publishing is locked down.</li>
+</ol>
 
-<h2>How Far in Advance Should I Plan Episodes?</h2>
+<p>That said, the more detail you track, the more insight you gain. Halfway through the year, you'll have data on which episodes took longest to edit, which guests became regular contributors, and which sponsorships converted well. That data is gold for scaling your show, so plan to expand tracking over time.</p>
 
-<p>Aim to have your next 8-12 weeks locked in the tracker before recording. For each episode, you need: confirmed guest (or topic), recording date, and publish date. This gives you a buffer to handle schedule changes without cascading problems.</p>
+<h2 id="how-far-in-advance-should-i-plan-episodes">How Far in Advance Should I Plan Episodes?</h2>
 
-<p>In practice, this means: this week you're recording next week's episode, editing last week's, and publishing this week's episode. While doing that, you're outreaching to guests for episodes four weeks out. Your tracker shows all of this simultaneously.</p>
+<p>Aim to have your next 8-12 weeks locked in the tracker before recording. For each episode, you need a confirmed guest (or topic), a recording date, and a publish date. This gives you a buffer to handle schedule changes without cascading problems.</p>
 
-<p>Don't lock in publish dates more than 12 weeks out—life happens and schedules change. But having a rolling 12-week view lets you spot conflicts and capacity problems before they hit.</p>
+<p>In practice, several episodes are moving at once, and your tracker shows all of this simultaneously:</p>
 
-<h2>What If a Guest Cancels Last Minute?</h2>
+<ul>
+<li><strong>Recording:</strong> next week's episode.</li>
+<li><strong>Editing:</strong> last week's recording.</li>
+<li><strong>Publishing:</strong> this week's episode.</li>
+<li><strong>Outreach:</strong> guests for episodes four weeks out.</li>
+</ul>
 
-<p>This happens. Your tracker should have a "reschedule" or "cancelled" status so you can mark what happened. If a guest cancels with only a week until publish date, you have two options: find a replacement guest quickly (hard) or publish a solo episode or clip show (easier). Whichever you choose, your tracker shows you that slot needs filling immediately.</p>
+<div class="callout note">
+<p class="box-title">Don't lock in too far ahead</p>
+<p>Don't lock in publish dates more than 12 weeks out. Life happens and schedules change. A rolling 12-week view is enough to spot conflicts and capacity problems before they hit.</p>
+</div>
 
-<p>Pro tip: Keep a list of backup guests—people you've interviewed before who can jump in on short notice if someone cancels. When you lose a guest, you reach out to your backup list and often can fill the slot within 24-48 hours.</p>
+<h2 id="what-if-a-guest-cancels-last-minute">What If a Guest Cancels Last Minute?</h2>
 
-<h2>How Do I Handle Podcast Sponsorships If I Don't Have Many?</h2>
+<p>This happens. Your tracker should have a "reschedule" or "cancelled" status so you can mark what happened. If a guest cancels with only a week until the publish date, you have two options:</p>
 
-<p>If you only have sponsorships occasionally, you still want to track them. You might have three episodes with one sponsor in month one, zero sponsored episodes for two months, then five sponsored episodes the next month. Without tracking, you lose the pattern. You might skip adding sponsor ads to an episode and not get paid for them. Or you might accidentally run an ad for Sponsor A on an episode that was supposed to feature Sponsor B.</p>
+<ul>
+<li><strong>Find a replacement guest quickly.</strong> The harder option.</li>
+<li><strong>Publish a solo episode or clip show.</strong> The easier option.</li>
+</ul>
+
+<p>Whichever you choose, your tracker shows you that the slot needs filling immediately.</p>
+
+<div class="callout tip">
+<p class="box-title">Pro tip: keep a backup list</p>
+<p>Keep a list of backup guests: people you've interviewed before who can jump in on short notice. When you lose a guest, reach out to your backup list. You can often fill the slot within 24-48 hours.</p>
+</div>
+
+<h2 id="how-do-i-handle-sponsorships-if-i-don-t-have-many">How Do I Handle Sponsorships If I Don't Have Many?</h2>
+
+<p>If you only have sponsorships occasionally, you still want to track them. You might have three episodes with one sponsor in month one, zero sponsored episodes for two months, then five sponsored episodes the next month. Without tracking, you lose the pattern, and mistakes creep in:</p>
+
+<ul>
+<li><strong>Missed ads.</strong> You skip adding sponsor ads to an episode and don't get paid for them.</li>
+<li><strong>Wrong sponsor.</strong> You run an ad for Sponsor A on an episode that was supposed to feature Sponsor B.</li>
+</ul>
 
 <p>Even if you have no sponsorships yet, fill in that column with "organic" or "no sponsor" so you're thinking about sponsorship from the beginning. When you do land a sponsor, you'll already have a system to manage them professionally.</p>
 
-<h2>Can I Track This in Google Sheets or Does It Need Special Software?</h2>
+<figure class="pin-figure">
+<img src="images/pins/episode-tracking-faq.jpg" alt="Infographic: five podcast tracking tips, from starting with five essential columns to adding listener data after a few months" width="600" height="900" loading="lazy">
+<figcaption>Save this summary to Pinterest for later.</figcaption>
+</figure>
 
-<p>Google Sheets works fine if you design the structure right. A column per data point (date, episode number, guest, status, etc.) and one row per episode is the format that works. Sheets let you sort, filter, and color-code episodes by status. The limitations: Sheets doesn't flag deadlines automatically, doesn't send reminders, and becomes hard to manage once you've got more than 50-60 episodes.</p>
+<h2 id="can-i-use-google-sheets-or-do-i-need-special-software">Can I Use Google Sheets or Do I Need Special Software?</h2>
 
-<p>Specialized podcast trackers (including the Podcast Producer & Episode Management Tracker) add features that spreadsheets can't: automatic deadline warnings, filtering by show or status, better data validation, and built-in workflows that guide you through each phase of production. But you can start with Sheets if that's what you have today. The important thing is to start tracking, whether in Sheets, Airtable, or a purpose-built tool.</p>
+<p>Google Sheets works fine if you design the structure right: one column per data point (date, episode number, guest, status, etc.) and one row per episode. Sheets let you sort, filter, and color-code episodes by status.</p>
 
-<h2>How Much Time Does Tracking Actually Take?</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th></th><th>Google Sheets</th><th>Specialized podcast tracker</th></tr></thead>
+<tbody>
+<tr><td>Sort, filter, color-code</td><td>Yes</td><td>Yes, including filtering by show or status</td></tr>
+<tr><td>Deadline warnings</td><td>No automatic flags or reminders</td><td>Automatic deadline warnings</td></tr>
+<tr><td>Structure</td><td>You design it yourself</td><td>Better data validation and built-in workflows for each phase</td></tr>
+</tbody>
+</table>
+</div>
 
-<p>Adding a new episode to the tracker takes two minutes: put in the guest name, recording date, and publish date. Updating it as you progress (marking guest as confirmed, adding episode title after recording, marking edited) is thirty seconds per update. Over the course of producing an episode, you're spending five-ten minutes total in the tracker across all updates.</p>
+<p>The other limitation: Sheets becomes hard to manage once you've got more than 50-60 episodes. Specialized trackers (including the Podcast Producer &amp; Episode Management Tracker) add features that spreadsheets can't. But you can start with Sheets if that's what you have today. The important thing is to start tracking, whether in Sheets, Airtable, or a purpose-built tool.</p>
 
-<p>That small time investment prevents hours of search-time when you're looking for a guest's email, digging for when an episode was recorded, or trying to remember which sponsorship belonged to which episode. The time savings compound.</p>
+<h2 id="how-much-time-does-tracking-actually-take">How Much Time Does Tracking Actually Take?</h2>
 
-<h2>What If I'm Behind on Publishing? Does Tracking Help?</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Task</th><th>Time</th></tr></thead>
+<tbody>
+<tr><td>Add a new episode (guest name, recording date, publish date)</td><td>2 minutes</td></tr>
+<tr><td>Each update (guest confirmed, title added, marked edited)</td><td>30 seconds</td></tr>
+<tr><td>Total across one episode's production</td><td>5-10 minutes</td></tr>
+</tbody>
+</table>
+</div>
 
-<p>Absolutely. If you're behind, the first thing to do is look at your tracker. You immediately see which episodes are in editing (and when they need to finish), which are waiting for show notes, which have publish dates coming up. You can see which episodes can be finished this week and reprioritize accordingly.</p>
+<p>That small time investment prevents hours of searching for a guest's email, digging for when an episode was recorded, or trying to remember which sponsorship belonged to which episode. The time savings compound.</p>
 
-<p>Tracking also prevents falling further behind. If you see that three episodes have editing deadlines on Friday and you know you can only finish two, you proactively push one to the following week instead of rushing it and creating a quality problem.</p>
+<h2 id="what-if-i-m-behind-on-publishing-does-tracking-help">What If I'm Behind on Publishing? Does Tracking Help?</h2>
 
-<h2>Should I Track Listener Numbers?</h2>
+<p>Absolutely. If you're behind, the first thing to do is look at your tracker. You immediately see:</p>
 
-<p>If you have access to listener metrics (downloads, listening time, completion rate), tracking those by episode is incredibly valuable. Over time, you see which episodes get more listens and which topics resonated. You can correlate promotion efforts with listening spikes. You can see if live guests drive more listeners than pre-recorded content.</p>
+<ul>
+<li>Which episodes are in editing, and when they need to finish</li>
+<li>Which are waiting for show notes</li>
+<li>Which have publish dates coming up</li>
+</ul>
 
-<p>You don't need this data on day one. But once your show has a few months of episodes and you're getting consistent listener data, add a "listeners" column to your tracker. Six months of data will reveal patterns that guide your content strategy.</p>
+<p>From there you can see which episodes can be finished this week and reprioritize accordingly.</p>
 
-<h2>What's the Minimum Viable Tracker?</h2>
+<p>Tracking also prevents falling further behind. If three episodes have editing deadlines on Friday and you know you can only finish two, you proactively push one to the following week. That beats rushing it and creating a quality problem.</p>
 
-<p>If you're just starting and don't want to overthink it, track these six columns: Date (publish date), Episode Number, Guest Name, Recording Date, Publish Date, and Status (pending/recorded/edited/published). That's enough to keep your pipeline organized. Add other columns as you need them.</p>
+<h2 id="should-i-track-listener-numbers">Should I Track Listener Numbers?</h2>
 
-<h2>How Do I Know If My Tracking System Is Working?</h2>
+<p>If you have access to listener metrics (downloads, listening time, completion rate), tracking them by episode is incredibly valuable. Over time you can:</p>
 
-<p>Three signs your tracker is actually working: (1) You never miss a publish date because you're referencing deadlines ahead of time. (2) You can answer "what's the status of episode X?" in ten seconds by looking at your tracker. (3) You're not searching email for guest details or recording dates anymore—it's all in the tracker.</p>
+<ul>
+<li><strong>Spot winners.</strong> See which episodes get more listens and which topics resonated.</li>
+<li><strong>Measure promotion.</strong> Correlate promotion efforts with listening spikes.</li>
+<li><strong>Compare formats.</strong> See if live guests drive more listeners than pre-recorded content.</li>
+</ul>
 
-<p>If you're still searching email, missing deadlines, or feeling confused about which episode is where, your tracking system needs improvement. Either it's not detailed enough, or you're not checking it often enough. Go back to the system and add the details or time blocks that will fix the gap.</p>
+<p>You don't need this data on day one. Once your show has a few months of episodes and consistent listener data, add a "listeners" column. Six months of data will reveal patterns that guide your content strategy.</p>
 
-<h2>Getting Started Today</h2>
+<h2 id="what-s-the-minimum-viable-tracker">What's the Minimum Viable Tracker?</h2>
+
+<p>If you're just starting and don't want to overthink it, track these six columns. That's enough to keep your pipeline organized. Add other columns as you need them.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Column</th><th>What goes in it</th></tr></thead>
+<tbody>
+<tr><td>Date</td><td>Publish date</td></tr>
+<tr><td>Episode Number</td><td>Sequential number</td></tr>
+<tr><td>Guest Name</td><td>Who's on the episode</td></tr>
+<tr><td>Recording Date</td><td>When you record</td></tr>
+<tr><td>Publish Date</td><td>When it goes live</td></tr>
+<tr><td>Status</td><td>Pending / recorded / edited / published</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="how-do-i-know-if-my-tracking-system-is-working">How Do I Know If My Tracking System Is Working?</h2>
+
+<p>Three signs your tracker is actually working:</p>
+
+<ol class="steps">
+<li><strong>You never miss a publish date.</strong> You're referencing deadlines ahead of time.</li>
+<li><strong>You answer status questions in ten seconds.</strong> "What's the status of episode X?" is one look at the tracker.</li>
+<li><strong>You've stopped searching email.</strong> Guest details and recording dates are all in the tracker.</li>
+</ol>
+
+<div class="callout note">
+<p class="box-title">Still searching email?</p>
+<p>If you're still searching email, missing deadlines, or confused about which episode is where, your system needs improvement. Either it's not detailed enough, or you're not checking it often enough. Add the details or time blocks that will fix the gap.</p>
+</div>
+
+<h2 id="getting-started-today">Getting Started Today</h2>
 
 <p>The best time to implement tracking was when you published Episode 1. The second-best time is today. Start with a simple structure, keep it in a place you check every day, and expand it as your show grows. Within a few weeks, you'll wonder how you ever managed without it.</p>
 
@@ -108,7 +310,19 @@
 
 <p>Stop managing your podcast in email and notes. Track it properly, and watch your consistency and confidence improve immediately.</p>
 
+<aside class="post-cta">
+<img src="cover-600x600.png" alt="Podcast Producer & Episode Management Tracker" loading="lazy">
+<div><p class="cta-kicker">Make it easy to keep track</p>
+<h3>Podcast Producer & Episode Management Tracker</h3>
+<p>A ready-to-use spreadsheet and guide for tracking episodes from idea to publish.</p>
+<p><a class="buy-button" href="https://kimnet8.gumroad.com/l/eagpjf">Get the Tracker &middot; $19.99</a></p></div>
+</aside>
+
 </article>
-<footer><p><a href="https://podcast-producer-tracker.beehiiv.com/subscribe">Subscribe for an email when new posts go live</a></p><p>&copy; 2026</p></footer>
+</main>
+<footer class="site-footer"><div class="inner">
+<p><a href="https://podcast-producer-tracker.beehiiv.com/subscribe">Get an email when new guides go live</a></p>
+<p>&copy; 2026 SimpleTrackers</p>
+</div></footer>
 </body>
 </html>

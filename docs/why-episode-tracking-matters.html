@@ -10,65 +10,238 @@
 <meta property="og:title" content="Why Episode Tracking Matters: The Real Cost of Disorganized Podcast Production">
 <meta property="og:description" content="The real cost of disorganized podcast production, from missed guest follow-ups to lost sponsor revenue, and why episode tracking fixes it.">
 <meta property="og:url" content="https://ghengoy.github.io/podcast-producer-tracker/why-episode-tracking-matters.html">
-<meta property="og:image" content="https://ghengoy.github.io/podcast-producer-tracker/cover-600x600.png">
+<meta property="og:image" content="https://ghengoy.github.io/podcast-producer-tracker/images/hero/why-episode-tracking-matters.jpg">
 <meta name="p:domain_verify" content="ed2ca7fb71cecfffeba5d895002ee1d1"/>
 <script data-goatcounter="https://ghengoy.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <style>
-  body { font-family: -apple-system, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #222; }
-  a { color: #0a5; }
-  header, footer { font-size: 0.9rem; color: #666; }
-  nav a { margin-right: 1rem; }
-  article h2 { font-size: 1.6rem; }
-  .product-box { border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
-  .product-box img { max-width: 200px; display: block; margin-bottom: 1rem; }
-  .buy-button { display: inline-block; background: #0a5; color: #fff; padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: bold; }
-  .buy-button:hover { background: #084; }
-  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0 2rem; }
-  .product-card { display: flex; flex-direction: column; gap: 0.25rem; border: 1px solid #ddd; border-radius: 8px; padding: 0.75rem; color: #222; text-decoration: none; font-size: 0.9rem; line-height: 1.35; }
-  .product-card:hover { border-color: #0a5; }
-  .product-card img { width: 100%; height: auto; border-radius: 4px; }
-  .product-card span { color: #666; }
-  .product-card .price { color: #0a5; font-weight: bold; }
+  :root { --accent: #4A306D; --accent-dark: #32204A; --tint: #F1ECF7; --ink: #1f2328; --muted: #5d6470;
+          --line: #e4e1da; --paper: #fbfaf7; --card: #ffffff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+         font-size: 18px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { color: var(--accent-dark); }
+  img { max-width: 100%; height: auto; }
+  .site-header { background: var(--card); border-bottom: 1px solid var(--line); }
+  .site-header .inner { max-width: 760px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { font-weight: 700; color: var(--ink); text-decoration: none; font-size: 17px; display: flex; align-items: center; gap: 10px; }
+  .brand-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); display: inline-block; position: relative; }
+  .brand-mark::after { content: ""; position: absolute; left: 7px; top: 8px; width: 14px; height: 3px; background: #fff; border-radius: 2px;
+                       box-shadow: 0 5px 0 #fff, 0 10px 0 rgba(255,255,255,.6); }
+  .site-header nav { display: flex; gap: 18px; font-size: 15px; }
+  .site-header nav a { color: var(--muted); text-decoration: none; }
+  .site-header nav a:hover { color: var(--accent); }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 56px; }
+  article > h1, main > h1 { font-size: clamp(30px, 5vw, 42px); line-height: 1.2; letter-spacing: -0.02em; margin: 8px 0 12px; }
+  h2 { font-size: 27px; line-height: 1.3; letter-spacing: -0.01em; margin: 52px 0 14px; padding-top: 6px; scroll-margin-top: 16px; }
+  h3 { font-size: 21px; line-height: 1.35; margin: 32px 0 8px; }
+  p { margin: 0 0 20px; }
+  ul, ol { padding-left: 1.3em; margin: 0 0 22px; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 650; }
+  .pillar-link { font-size: 15px; margin: 0 0 4px; }
+  .pillar-link a { text-decoration: none; }
+  .post-meta { color: var(--muted); font-size: 15px; margin: 0 0 24px; }
+  .post-hero { margin: 0 0 28px; }
+  .post-hero img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; display: block; background: var(--tint); }
+  figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  figcaption a { color: var(--muted); }
+  .toc { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px 8px; margin: 0 0 32px; font-size: 16px; }
+  .toc-title { font-weight: 700; margin: 0 0 8px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .toc ol { margin: 0 0 10px; }
+  .toc li { margin-bottom: 4px; }
+  .toc a { text-decoration: none; }
+  .key-takeaways, .callout { border-radius: 12px; padding: 20px 24px 6px; margin: 0 0 30px; }
+  .key-takeaways { background: var(--tint); border-left: 5px solid var(--accent); }
+  .key-takeaways ul { margin-bottom: 14px; }
+  .box-title { font-weight: 700; margin: 0 0 8px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent-dark); }
+  .callout { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--accent); }
+  .callout.note { border-left-color: #b7791f; }
+  .callout.note .box-title { color: #8a5a12; }
+  .steps { list-style: none; counter-reset: step; padding-left: 0; }
+  .steps > li { counter-increment: step; position: relative; padding-left: 52px; margin-bottom: 18px; }
+  .steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%;
+                        background: var(--accent); color: #fff; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .table-wrap { overflow-x: auto; margin: 0 0 28px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 16px; line-height: 1.5; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--tint); color: var(--accent-dark); font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+  .pin-figure { margin: 36px auto; max-width: 400px; text-align: center; }
+  .pin-figure img { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.12); display: block; }
+  blockquote { margin: 0 0 24px; padding: 4px 0 4px 20px; border-left: 3px solid var(--line); color: var(--muted); font-style: italic; }
+  .post-cta { display: flex; gap: 24px; align-items: center; background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--accent);
+              border-radius: 14px; padding: 24px; margin: 48px 0 8px; }
+  .post-cta img { width: 150px; border-radius: 10px; flex-shrink: 0; }
+  .post-cta h3 { margin: 2px 0 6px; }
+  .post-cta p { margin-bottom: 12px; font-size: 16px; }
+  .cta-kicker { font-size: 13px !important; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 !important; }
+  .buy-button { display: inline-block; background: var(--accent); color: #fff !important; padding: 12px 22px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px; }
+  .buy-button:hover { background: var(--accent-dark); }
+  .product-box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin: 24px 0 36px; display: grid; grid-template-columns: 200px 1fr; gap: 0 24px; align-items: center; }
+  .product-box img { width: 200px; border-radius: 10px; grid-row: span 3; }
+  .product-box h3 { margin: 0 0 6px; }
+  .product-box p { margin-bottom: 12px; font-size: 16px; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin: 12px 0 36px; }
+  .product-card { display: flex; flex-direction: column; gap: 4px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; color: var(--ink); text-decoration: none; font-size: 15px; line-height: 1.4; }
+  .product-card:hover { border-color: var(--accent); }
+  .product-card img { width: 100%; border-radius: 8px; margin-bottom: 4px; }
+  .product-card span { color: var(--muted); }
+  .product-card .price { color: var(--accent); font-weight: 700; }
+  .post-list { list-style: none; padding: 0; display: grid; gap: 16px; }
+  .post-list li { margin: 0; }
+  .post-card { display: flex; gap: 18px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; color: var(--ink); text-decoration: none; }
+  .post-card:hover { border-color: var(--accent); }
+  .post-card img { width: 200px; object-fit: cover; flex-shrink: 0; background: var(--tint); }
+  .post-card-text { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px 16px 0; }
+  .post-card-text strong { font-size: 19px; line-height: 1.35; }
+  .post-card-desc { color: var(--muted); font-size: 15px; line-height: 1.55; }
+  .post-card-date { color: var(--muted); font-size: 13px; }
+  .site-footer { border-top: 1px solid var(--line); background: var(--card); color: var(--muted); font-size: 15px; }
+  .site-footer .inner { max-width: 760px; margin: 0 auto; padding: 28px 20px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .site-footer p { margin: 0; }
+  @media (max-width: 600px) {
+    body { font-size: 17px; }
+    h2 { font-size: 23px; margin-top: 40px; }
+    .post-cta, .post-card { flex-direction: column; }
+    .post-cta img { width: 120px; }
+    .post-card img { width: 100%; aspect-ratio: 16 / 9; }
+    .post-card-text { padding: 0 16px 16px; }
+    .product-box { grid-template-columns: 1fr; }
+    .product-box img { grid-row: auto; margin-bottom: 12px; }
+  }
 </style>
 </head>
 <body>
-<header><nav><a href="index.html">Home</a></nav></header>
+<header class="site-header"><div class="inner">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Podcast Production</a>
+<nav><a href="index.html">Guides</a><a href="pillar-guide.html">Start here</a></nav>
+</div></header>
+<main>
 <article>
 <h1>Why Episode Tracking Matters: The Real Cost of Disorganized Podcast Production</h1>
-<p class="date">2026-08-21</p>
 <p class="pillar-link"><a href="pillar-guide.html">&larr; Back to the Complete Podcast Production Guide</a></p>
+<p class="post-meta"><time datetime="2026-08-21">August 21, 2026</time> &middot; 4 min read</p>
+<figure class="post-hero"><img src="images/hero/why-episode-tracking-matters.jpg" alt="Headphones and a portable recorder plugged into a small laptop" width="1200" height="675"><figcaption>Photo: <a href="https://www.flickr.com/photos/71599632@N00/3867544260" rel="nofollow">pixelsebi</a>, <a href="https://creativecommons.org/licenses/by/2.0/" rel="license nofollow">CC BY 2.0</a></figcaption></figure>
+<div class="key-takeaways">
+<p class="box-title">Key takeaways</p>
+<ul>
+<li><strong>Ad-hoc systems break:</strong> email threads and notes apps work for a few episodes, then fail as the show grows.</li>
+<li><strong>Four hidden costs:</strong> lost time, lost revenue, lost audience trust, and a show that can't scale.</li>
+<li><strong>Tracking creates visibility and control:</strong> you catch problems before they happen and answer questions in seconds.</li>
+<li><strong>Start before you need it:</strong> the best time is before it's urgent; the second-best time is now.</li>
+</ul>
+</div>
+<nav class="toc" aria-label="Contents"><p class="toc-title">In this guide</p>
+<ol>
+<li><a href="#the-hidden-costs-of-disorganization">The Hidden Costs of Disorganization</a></li>
+<li><a href="#what-good-tracking-actually-enables">What Good Tracking Actually Enables</a></li>
+<li><a href="#starting-with-a-system">Starting with a System</a></li>
+</ol></nav>
+<p>Running a podcast looks simple from the outside: record, edit, publish, repeat. But anyone producing more than a handful of episodes knows the reality is far messier. Between juggling guest schedules, tracking recording dates, managing sponsorship deals, and getting episodes published on time, the operational complexity spirals fast.</p>
 
-<p>Running a podcast looks simple from the outside: record, edit, publish, repeat. But anyone producing more than a handful of episodes knows the reality is far messier. Between juggling guest schedules, tracking recording dates, managing sponsorship deals, and ensuring episodes actually make it to publish before your deadline, the operational complexity spirals fast.</p>
+<p>Most podcasters start with email threads, Google Docs, or hastily written notes in a Notes app. This works for the first few episodes. But as your show grows, especially if you're running multiple shows, these ad-hoc systems fail spectacularly:</p>
 
-<p>Most podcasters start with email threads, Google Docs, or hastily written notes in a Notes app. This works for the first few episodes. But as your show grows—or especially if you're running multiple shows—these ad-hoc systems fail spectacularly. Episodes slip past their publish date. Guest confirmations get lost. Sponsorship links don't make it into show notes. Revenue from affiliate agreements goes untracked. The production pipeline becomes a guessing game.</p>
+<ul>
+<li>Episodes slip past their publish date.</li>
+<li>Guest confirmations get lost.</li>
+<li>Sponsorship links don't make it into show notes.</li>
+<li>Revenue from affiliate agreements goes untracked.</li>
+</ul>
 
-<h2>The Hidden Costs of Disorganization</h2>
+<p>The production pipeline becomes a guessing game.</p>
 
-<p>When episode data lives scattered across email, Slack, Google Drive, and handwritten notes, real costs accumulate. First, there's lost time. You spend hours searching for a guest's confirmation email, digging through Slack history to find when an episode was actually recorded, or reconstructing which sponsorship deals applied to which episode. That's time stolen from content creation or audience engagement.</p>
+<h2 id="the-hidden-costs-of-disorganization">The Hidden Costs of Disorganization</h2>
 
-<p>Second, there's lost revenue. Without a system tracking affiliate links episode-by-episode, you lose visibility into which promotions converted and which sponsors honored their commitments. Sponsorship rates depend on accurate listener numbers and completion rates per episode—metrics you can't measure if you don't know which episode aired when or how long it actually ran. If a sponsor asks for proof that their ad ran in three episodes, can you provide it immediately? Or do you scramble to reconstruct that information?</p>
+<p>When episode data lives scattered across email, Slack, Google Drive, and handwritten notes, real costs accumulate.</p>
 
-<p>Third, there's audience trust. Missing a publish deadline or accidentally publishing with outdated sponsorship links damages credibility. Your listeners expect consistency. When episodes disappear from the RSS feed or show notes link to broken affiliate URLs, it signals amateurism. Sponsors lose confidence in your professionalism and hesitate to renew deals.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Cost</th><th>What it looks like</th></tr></thead>
+<tbody>
+<tr><td>Lost time</td><td>Hours searching for confirmation emails and reconstructing recording dates</td></tr>
+<tr><td>Lost revenue</td><td>No visibility into which promotions converted or which sponsors' commitments were honored</td></tr>
+<tr><td>Audience trust</td><td>Missed publish deadlines and broken or outdated sponsor links</td></tr>
+<tr><td>Scaling</td><td>A workflow that barely worked at 20 episodes collapses at 50</td></tr>
+</tbody>
+</table>
+</div>
 
-<p>Fourth, scaling becomes nearly impossible. The workflow that barely worked for 20 episodes collapses at 50. If you decide to launch a second show or bring on a co-host, you need a system both of you can reference instantly. Email threads and shared docs don't scale. Someone forgets to update the master list. Episodes collide on recording dates. Guest details get lost. The production pipeline stops being a workflow and becomes chaos.</p>
+<h3>1. Lost time</h3>
 
-<h2>What Good Tracking Actually Enables</h2>
+<p>You spend hours searching for a guest's confirmation email, digging through Slack history to find when an episode was actually recorded, or reconstructing which sponsorship deals applied to which episode. That's time stolen from content creation or audience engagement.</p>
 
-<p>A structured episode tracking system does more than store data. It creates visibility. You can see at a glance which episodes are recorded but not yet published. You know exactly when guests confirmed and what prep materials you sent them. You track which sponsorship deals are active for which episodes. You know your publication schedule weeks in advance and can flag conflicts before they happen.</p>
+<h3>2. Lost revenue</h3>
 
-<p>With this visibility comes control. You catch missed deadlines before they happen. You confirm episode details with sponsors before going live. You can answer the question "did that affiliate link actually run in the Thanksgiving episode?" in ten seconds, not ten minutes of searching. You coordinate with guests smoothly because all their details—email, confirmation status, prep materials, recording date—are in one place.</p>
+<p>Without a system tracking affiliate links episode by episode, you lose visibility into which promotions converted and which sponsors honored their commitments. Sponsorship rates depend on accurate listener numbers and completion rates per episode. You can't measure those if you don't know which episode aired when or how long it actually ran.</p>
 
-<p>Most importantly, tracking enables growth. Once you have a single source of truth for episode data, you can run multiple shows without doubling your workload. A co-host can jump in without asking "wait, when were we supposed to record this?" You can spot patterns in what content resonates. You can prove sponsorship value to brands. You can plan content strategically instead of reacting to chaos.</p>
+<div class="callout note">
+<p class="box-title">The sponsor test</p>
+<p>If a sponsor asks for proof that their ad ran in three episodes, can you provide it immediately? Or do you scramble to reconstruct that information?</p>
+</div>
 
-<h2>Starting with a System</h2>
+<h3>3. Audience trust</h3>
 
-<p>This is why tracking matters. Not because tracking is fun or exciting, but because it's the operational foundation that lets everything else work. Without it, you're limited. Your show can't scale. Your sponsors can't trust you. Your audience can't count on consistency. Your revenue stays flat because you're too busy chasing details to think strategically.</p>
+<p>Missing a publish deadline or accidentally publishing with outdated sponsorship links damages credibility. Your listeners expect consistency. When episodes disappear from the RSS feed or show notes link to broken affiliate URLs, it signals amateurism. Sponsors lose confidence in your professionalism and hesitate to renew deals.</p>
 
-<p>The best time to implement a tracking system is before you need it desperately. The second-best time is right now. If your episode workflow lives in email and notes, that's the first thing to fix. The Podcast Producer & Episode Management Tracker is designed exactly for this—a centralized system for guest coordination, recording schedules, publication timelines, and sponsorship tracking. With a proper system, you reclaim the time, visibility, and control that turns a podcast from a side project into a sustainable business.</p>
+<h3>4. Scaling becomes nearly impossible</h3>
+
+<p>If you launch a second show or bring on a co-host, you need a system both of you can reference instantly. Email threads and shared docs don't scale. Someone forgets to update the master list. Episodes collide on recording dates. Guest details get lost. The production pipeline stops being a workflow and becomes chaos.</p>
+
+<figure class="pin-figure">
+<img src="images/pins/why-episode-tracking-matters.jpg" alt="Infographic: five reasons disorganized podcasts lose money, from hours lost searching email threads to systems that break at 50 episodes" width="600" height="900" loading="lazy">
+<figcaption>Save this summary to Pinterest for later.</figcaption>
+</figure>
+
+<h2 id="what-good-tracking-actually-enables">What Good Tracking Actually Enables</h2>
+
+<p>A structured episode tracking system does more than store data. It creates visibility. At a glance, you can see:</p>
+
+<ul>
+<li><strong>Pipeline status:</strong> which episodes are recorded but not yet published</li>
+<li><strong>Guest status:</strong> when guests confirmed and what prep materials you sent them</li>
+<li><strong>Sponsor status:</strong> which sponsorship deals are active for which episodes</li>
+<li><strong>Schedule:</strong> your publication schedule weeks in advance, with conflicts flagged before they happen</li>
+</ul>
+
+<p>With this visibility comes control. You catch missed deadlines before they happen and confirm episode details with sponsors before going live. You can answer "did that affiliate link actually run in the Thanksgiving episode?" in ten seconds, not ten minutes. Guest coordination runs smoothly because their email, confirmation status, prep materials, and recording date are all in one place.</p>
+
+<div class="callout tip">
+<p class="box-title">Tracking enables growth</p>
+<p>Once you have a single source of truth for episode data, you can run multiple shows without doubling your workload. A co-host can jump in without asking "wait, when were we supposed to record this?" You can spot patterns in what content resonates, prove sponsorship value to brands, and plan content strategically instead of reacting to chaos.</p>
+</div>
+
+<h2 id="starting-with-a-system">Starting with a System</h2>
+
+<p>This is why tracking matters. Not because tracking is fun or exciting, but because it's the operational foundation that lets everything else work. Without it, you're limited:</p>
+
+<ul>
+<li>Your show can't scale.</li>
+<li>Your sponsors can't trust you.</li>
+<li>Your audience can't count on consistency.</li>
+<li>Your revenue stays flat because you're too busy chasing details to think strategically.</li>
+</ul>
+
+<p>The best time to implement a tracking system is before you need it desperately. The second-best time is right now. If your episode workflow lives in email and notes, that's the first thing to fix.</p>
+
+<p>The Podcast Producer &amp; Episode Management Tracker is designed exactly for this: a centralized system for guest coordination, recording schedules, publication timelines, and sponsorship tracking. With a proper system, you reclaim the time, visibility, and control that turns a podcast from a side project into a sustainable business.</p>
 
 <p>Visit the <a href="https://kimnet8.gumroad.com/l/eagpjf">Podcast Producer & Episode Management Tracker on Gumroad</a> to see how other podcasters organize their production pipelines and scale their shows.</p>
 
+<aside class="post-cta">
+<img src="cover-600x600.png" alt="Podcast Producer & Episode Management Tracker" loading="lazy">
+<div><p class="cta-kicker">Make it easy to keep track</p>
+<h3>Podcast Producer & Episode Management Tracker</h3>
+<p>A ready-to-use spreadsheet and guide for tracking episodes from idea to publish.</p>
+<p><a class="buy-button" href="https://kimnet8.gumroad.com/l/eagpjf">Get the Tracker &middot; $19.99</a></p></div>
+</aside>
+
 </article>
-<footer><p><a href="https://podcast-producer-tracker.beehiiv.com/subscribe">Subscribe for an email when new posts go live</a></p><p>&copy; 2026</p></footer>
+</main>
+<footer class="site-footer"><div class="inner">
+<p><a href="https://podcast-producer-tracker.beehiiv.com/subscribe">Get an email when new guides go live</a></p>
+<p>&copy; 2026 SimpleTrackers</p>
+</div></footer>
 </body>
 </html>

@@ -10,71 +10,251 @@
 <meta property="og:title" content="How Often Should You Publish a Podcast? Finding a Sustainable Release Schedule">
 <meta property="og:description" content="Weekly, biweekly, or monthly? A practical framework for choosing a podcast release schedule you can actually sustain long-term.">
 <meta property="og:url" content="https://ghengoy.github.io/podcast-producer-tracker/how-often-should-you-publish-a-podcast.html">
-<meta property="og:image" content="https://ghengoy.github.io/podcast-producer-tracker/cover-600x600.png">
+<meta property="og:image" content="https://ghengoy.github.io/podcast-producer-tracker/images/hero/how-often-should-you-publish-a-podcast.jpg">
 <meta name="p:domain_verify" content="ed2ca7fb71cecfffeba5d895002ee1d1"/>
 <script data-goatcounter="https://ghengoy.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <style>
-  body { font-family: -apple-system, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #222; }
-  a { color: #0a5; }
-  header, footer { font-size: 0.9rem; color: #666; }
-  nav a { margin-right: 1rem; }
-  article h2 { font-size: 1.6rem; }
-  .product-box { border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
-  .product-box img { max-width: 200px; display: block; margin-bottom: 1rem; }
-  .buy-button { display: inline-block; background: #0a5; color: #fff; padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: bold; }
-  .buy-button:hover { background: #084; }
-  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0 2rem; }
-  .product-card { display: flex; flex-direction: column; gap: 0.25rem; border: 1px solid #ddd; border-radius: 8px; padding: 0.75rem; color: #222; text-decoration: none; font-size: 0.9rem; line-height: 1.35; }
-  .product-card:hover { border-color: #0a5; }
-  .product-card img { width: 100%; height: auto; border-radius: 4px; }
-  .product-card span { color: #666; }
-  .product-card .price { color: #0a5; font-weight: bold; }
+  :root { --accent: #4A306D; --accent-dark: #32204A; --tint: #F1ECF7; --ink: #1f2328; --muted: #5d6470;
+          --line: #e4e1da; --paper: #fbfaf7; --card: #ffffff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+         font-size: 18px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { color: var(--accent-dark); }
+  img { max-width: 100%; height: auto; }
+  .site-header { background: var(--card); border-bottom: 1px solid var(--line); }
+  .site-header .inner { max-width: 760px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { font-weight: 700; color: var(--ink); text-decoration: none; font-size: 17px; display: flex; align-items: center; gap: 10px; }
+  .brand-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); display: inline-block; position: relative; }
+  .brand-mark::after { content: ""; position: absolute; left: 7px; top: 8px; width: 14px; height: 3px; background: #fff; border-radius: 2px;
+                       box-shadow: 0 5px 0 #fff, 0 10px 0 rgba(255,255,255,.6); }
+  .site-header nav { display: flex; gap: 18px; font-size: 15px; }
+  .site-header nav a { color: var(--muted); text-decoration: none; }
+  .site-header nav a:hover { color: var(--accent); }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 56px; }
+  article > h1, main > h1 { font-size: clamp(30px, 5vw, 42px); line-height: 1.2; letter-spacing: -0.02em; margin: 8px 0 12px; }
+  h2 { font-size: 27px; line-height: 1.3; letter-spacing: -0.01em; margin: 52px 0 14px; padding-top: 6px; scroll-margin-top: 16px; }
+  h3 { font-size: 21px; line-height: 1.35; margin: 32px 0 8px; }
+  p { margin: 0 0 20px; }
+  ul, ol { padding-left: 1.3em; margin: 0 0 22px; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 650; }
+  .pillar-link { font-size: 15px; margin: 0 0 4px; }
+  .pillar-link a { text-decoration: none; }
+  .post-meta { color: var(--muted); font-size: 15px; margin: 0 0 24px; }
+  .post-hero { margin: 0 0 28px; }
+  .post-hero img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; display: block; background: var(--tint); }
+  figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  figcaption a { color: var(--muted); }
+  .toc { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px 8px; margin: 0 0 32px; font-size: 16px; }
+  .toc-title { font-weight: 700; margin: 0 0 8px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .toc ol { margin: 0 0 10px; }
+  .toc li { margin-bottom: 4px; }
+  .toc a { text-decoration: none; }
+  .key-takeaways, .callout { border-radius: 12px; padding: 20px 24px 6px; margin: 0 0 30px; }
+  .key-takeaways { background: var(--tint); border-left: 5px solid var(--accent); }
+  .key-takeaways ul { margin-bottom: 14px; }
+  .box-title { font-weight: 700; margin: 0 0 8px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent-dark); }
+  .callout { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--accent); }
+  .callout.note { border-left-color: #b7791f; }
+  .callout.note .box-title { color: #8a5a12; }
+  .steps { list-style: none; counter-reset: step; padding-left: 0; }
+  .steps > li { counter-increment: step; position: relative; padding-left: 52px; margin-bottom: 18px; }
+  .steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%;
+                        background: var(--accent); color: #fff; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .table-wrap { overflow-x: auto; margin: 0 0 28px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 16px; line-height: 1.5; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--tint); color: var(--accent-dark); font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+  .pin-figure { margin: 36px auto; max-width: 400px; text-align: center; }
+  .pin-figure img { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.12); display: block; }
+  blockquote { margin: 0 0 24px; padding: 4px 0 4px 20px; border-left: 3px solid var(--line); color: var(--muted); font-style: italic; }
+  .post-cta { display: flex; gap: 24px; align-items: center; background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--accent);
+              border-radius: 14px; padding: 24px; margin: 48px 0 8px; }
+  .post-cta img { width: 150px; border-radius: 10px; flex-shrink: 0; }
+  .post-cta h3 { margin: 2px 0 6px; }
+  .post-cta p { margin-bottom: 12px; font-size: 16px; }
+  .cta-kicker { font-size: 13px !important; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 !important; }
+  .buy-button { display: inline-block; background: var(--accent); color: #fff !important; padding: 12px 22px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px; }
+  .buy-button:hover { background: var(--accent-dark); }
+  .product-box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin: 24px 0 36px; display: grid; grid-template-columns: 200px 1fr; gap: 0 24px; align-items: center; }
+  .product-box img { width: 200px; border-radius: 10px; grid-row: span 3; }
+  .product-box h3 { margin: 0 0 6px; }
+  .product-box p { margin-bottom: 12px; font-size: 16px; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin: 12px 0 36px; }
+  .product-card { display: flex; flex-direction: column; gap: 4px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; color: var(--ink); text-decoration: none; font-size: 15px; line-height: 1.4; }
+  .product-card:hover { border-color: var(--accent); }
+  .product-card img { width: 100%; border-radius: 8px; margin-bottom: 4px; }
+  .product-card span { color: var(--muted); }
+  .product-card .price { color: var(--accent); font-weight: 700; }
+  .post-list { list-style: none; padding: 0; display: grid; gap: 16px; }
+  .post-list li { margin: 0; }
+  .post-card { display: flex; gap: 18px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; color: var(--ink); text-decoration: none; }
+  .post-card:hover { border-color: var(--accent); }
+  .post-card img { width: 200px; object-fit: cover; flex-shrink: 0; background: var(--tint); }
+  .post-card-text { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px 16px 0; }
+  .post-card-text strong { font-size: 19px; line-height: 1.35; }
+  .post-card-desc { color: var(--muted); font-size: 15px; line-height: 1.55; }
+  .post-card-date { color: var(--muted); font-size: 13px; }
+  .site-footer { border-top: 1px solid var(--line); background: var(--card); color: var(--muted); font-size: 15px; }
+  .site-footer .inner { max-width: 760px; margin: 0 auto; padding: 28px 20px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .site-footer p { margin: 0; }
+  @media (max-width: 600px) {
+    body { font-size: 17px; }
+    h2 { font-size: 23px; margin-top: 40px; }
+    .post-cta, .post-card { flex-direction: column; }
+    .post-cta img { width: 120px; }
+    .post-card img { width: 100%; aspect-ratio: 16 / 9; }
+    .post-card-text { padding: 0 16px 16px; }
+    .product-box { grid-template-columns: 1fr; }
+    .product-box img { grid-row: auto; margin-bottom: 12px; }
+  }
 </style>
 </head>
 <body>
-<header><nav><a href="index.html">Home</a></nav></header>
+<header class="site-header"><div class="inner">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Podcast Production</a>
+<nav><a href="index.html">Guides</a><a href="pillar-guide.html">Start here</a></nav>
+</div></header>
+<main>
 <article>
 <h1>How Often Should You Publish a Podcast? Finding a Sustainable Release Schedule</h1>
-<p class="date">2026-10-14</p>
 <p class="pillar-link"><a href="pillar-guide.html">&larr; Back to the Complete Podcast Production Guide</a></p>
+<p class="post-meta"><time datetime="2026-10-14">October 14, 2026</time> &middot; 5 min read</p>
+<figure class="post-hero"><img src="images/hero/how-often-should-you-publish-a-podcast.jpg" alt="White desk clock beside a pen and notebook on a clean desk" width="1200" height="675"><figcaption>Photo: <a href="https://www.flickr.com/photos/135396164@N05/33572876081" rel="nofollow">freestocks.org</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="license nofollow">CC0</a></figcaption></figure>
+<div class="key-takeaways">
+<p class="box-title">Key takeaways</p>
+<ul>
+<li><strong>The rule:</strong> pick the slowest cadence you can sustain indefinitely, then hold it.</li>
+<li><strong>Solo or duo shows:</strong> weekly is the realistic ceiling; biweekly or monthly is often the better long-term choice.</li>
+<li><strong>Consistency beats frequency:</strong> a reliable every-other-Tuesday show outperforms one that publishes "whenever it's ready."</li>
+<li><strong>Use data, not gut feel:</strong> time three episodes, check your capacity, then slow the result down one notch.</li>
+</ul>
+</div>
+<nav class="toc" aria-label="Contents"><p class="toc-title">In this guide</p>
+<ol>
+<li><a href="#the-short-answer">The Short Answer</a></li>
+<li><a href="#weekly-the-default-for-a-reason">Weekly: The Default for a Reason</a></li>
+<li><a href="#biweekly-the-sustainable-middle-ground">Biweekly: The Sustainable Middle Ground</a></li>
+<li><a href="#monthly-and-seasonal-fewer-deeper-episodes">Monthly and Seasonal: Fewer, Deeper Episodes</a></li>
+<li><a href="#consistency-matters-more-than-frequency">Consistency Matters More Than Frequency</a></li>
+<li><a href="#a-simple-framework-for-choosing-your-cadence">A Simple Framework for Choosing Your Cadence</a></li>
+<li><a href="#signs-your-schedule-isn-t-sustainable">Signs Your Schedule Isn't Sustainable</a></li>
+<li><a href="#where-a-tracker-makes-the-decision-easier">Where a Tracker Makes the Decision Easier</a></li>
+</ol></nav>
+<p>Every new podcaster asks the same question in the first month: how often should I actually publish? There's no universal number, but there is a reliable way to find the right cadence for your show, your workload, and your audience.</p>
 
-<p>Every new podcaster asks the same question in the first month: how often should I actually publish? The honest answer is that there's no universal number, but there is a reliable way to find the right cadence for your show, your workload, and your audience. Picking the wrong frequency is one of the most common reasons shows stall out or quietly disappear after a few months.</p>
+<p>Picking the wrong frequency is one of the most common reasons shows stall out or quietly disappear after a few months.</p>
 
-<h2>The Short Answer</h2>
+<h2 id="the-short-answer">The Short Answer</h2>
 
-<p>Pick the slowest cadence you can sustain indefinitely, then hold it. Most successful independent podcasts settle on weekly or biweekly releases. Shows that publish daily or multiple times a week are almost always backed by a team, not a solo host recording between other work. If you're producing alone or with one collaborator, weekly is the realistic ceiling, and biweekly or monthly is often the better long-term choice.</p>
+<p>Pick the slowest cadence you can sustain indefinitely, then hold it. Most successful independent podcasts settle on weekly or biweekly releases.</p>
 
-<h2>Weekly: The Default for a Reason</h2>
+<p>Shows that publish daily or multiple times a week are almost always backed by a team, not a solo host recording between other work. If you're producing alone or with one collaborator, weekly is the realistic ceiling, and biweekly or monthly is often the better long-term choice.</p>
 
-<p>Weekly is the most common cadence because it matches how listening apps and algorithms reward consistency, and because a seven-day cycle gives you enough runway to book a guest, record, edit, and publish without constant panic. The tradeoff is that weekly leaves almost no slack. One cancelled guest, one sick week, or one busy stretch at your day job and you're publishing late or skipping a week entirely. Weekly only works if your recording-to-publish pipeline is tight and your guest booking stays two to three weeks ahead of your recording date.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Cadence</th><th>Best for</th><th>Main tradeoff</th></tr></thead>
+<tbody>
+<tr><td>Weekly</td><td>Shows with a tight pipeline and guests booked 2-3 weeks ahead</td><td>Almost no slack for cancellations or busy weeks</td></tr>
+<tr><td>Biweekly</td><td>Shows produced by one or two people alongside other work</td><td>An unfair reputation as "not serious enough"</td></tr>
+<tr><td>Monthly or seasonal</td><td>In-depth research, narrative or investigative formats, hosts with a full-time job or business</td><td>Listeners forget to check if the gap has no clear pattern</td></tr>
+</tbody>
+</table>
+</div>
 
-<h2>Biweekly: The Sustainable Middle Ground</h2>
+<h2 id="weekly-the-default-for-a-reason">Weekly: The Default for a Reason</h2>
 
-<p>Biweekly release schedules get a bad reputation as "not serious enough," but they're often the most sustainable choice for shows produced by one or two people alongside other work. A two-week cycle gives you a full week of buffer for guest rescheduling, editing delays, or life getting in the way, while still publishing often enough to stay in listeners' rotation. Many shows that start weekly and burn out within three months would have lasted years on a biweekly schedule instead.</p>
+<p>Weekly is the most common cadence for two reasons:</p>
 
-<h2>Monthly and Seasonal: When Fewer, Deeper Episodes Win</h2>
+<ul>
+<li><strong>It rewards consistency.</strong> It matches how listening apps and algorithms reward a steady release pattern.</li>
+<li><strong>It gives you just enough runway.</strong> A seven-day cycle lets you book a guest, record, edit, and publish without constant panic.</li>
+</ul>
 
-<p>Monthly or seasonal releases (publishing eight to twelve episodes over a few months, then taking a break) work well for interview shows built around in-depth research, narrative or investigative formats, or hosts juggling podcasting around a full-time job or business. The risk is audience memory: listeners forget to check for new episodes if the gap between releases gets too long without a clear pattern. If you choose this cadence, communicate it explicitly in your show notes and social posts so listeners know when to expect the next episode.</p>
+<p>The tradeoff is that weekly leaves almost no slack. One cancelled guest, one sick week, or one busy stretch at your day job and you're publishing late or skipping a week entirely.</p>
 
-<h2>Consistency Matters More Than Frequency</h2>
+<div class="callout note">
+<p class="box-title">Weekly only works if...</p>
+<p>Your recording-to-publish pipeline is tight and your guest booking stays two to three weeks ahead of your recording date.</p>
+</div>
 
-<p>A show that publishes reliably every other Tuesday will outperform a show that publishes "whenever it's ready," even if the second show technically releases more episodes per year. Listeners build a habit around your show, and podcast apps surface shows with a predictable release pattern more favorably than ones with erratic gaps. If you have to choose between publishing more often and publishing on a schedule you can guarantee, choose the schedule you can guarantee every time.</p>
+<h2 id="biweekly-the-sustainable-middle-ground">Biweekly: The Sustainable Middle Ground</h2>
 
-<h2>A Simple Framework for Choosing Your Cadence</h2>
+<p>Biweekly schedules get a bad reputation as "not serious enough." But they're often the most sustainable choice for shows produced by one or two people alongside other work.</p>
 
-<p><strong>Step 1 — Time audit:</strong> Track how many hours one episode actually takes you, from guest outreach through final publish, across your next three episodes. Most new podcasters underestimate this by half. <strong>Step 2 — Capacity check:</strong> Divide your available weekly production hours by that per-episode number. <strong>Step 3 — Buffer for life:</strong> Whatever cadence that math suggests, slow it down by one notch. If the math says weekly, plan for biweekly. You can always increase frequency later once you have a production rhythm; it's much harder to walk back a cadence you've publicly committed to.</p>
+<p>A two-week cycle gives you a full week of buffer for guest rescheduling, editing delays, or life getting in the way. You still publish often enough to stay in listeners' rotation. Many shows that start weekly and burn out within three months would have lasted years on a biweekly schedule instead.</p>
 
-<h2>Signs Your Current Schedule Isn't Sustainable</h2>
+<h2 id="monthly-and-seasonal-fewer-deeper-episodes">Monthly and Seasonal: Fewer, Deeper Episodes</h2>
 
-<p><strong>Rushed editing:</strong> You're consistently finishing edits the night before publish instead of days ahead. <strong>Guest backlog thinning:</strong> You no longer have guests confirmed more than one or two episodes out. <strong>Skipped weeks increasing:</strong> You've missed your stated publish date two or more times in the last quarter. <strong>Dread instead of momentum:</strong> Recording day feels like a deadline to survive rather than something you look forward to. Any one of these is a sign to slow your cadence before you burn out entirely, not a sign to push harder.</p>
+<p>Seasonal means publishing eight to twelve episodes over a few months, then taking a break. Monthly or seasonal releases work well for:</p>
 
-<h2>Where a Tracker Makes the Decision Easier</h2>
+<ul>
+<li>Interview shows built around in-depth research</li>
+<li>Narrative or investigative formats</li>
+<li>Hosts juggling podcasting around a full-time job or business</li>
+</ul>
 
-<p>You can't evaluate your real cadence from memory or gut feeling — you need actual data on how long each stage takes and how often you're hitting your own deadlines. Logging recording date, editing deadline, and publish date for every episode in one place lets you see, after just four or five episodes, exactly how much runway your current schedule gives you and whether it's shrinking or holding steady. That visibility is what turns "I think weekly is too much" into "my last three edits each took two extra days, so biweekly is the realistic cadence."</p>
+<p>The risk is audience memory. Listeners forget to check for new episodes if the gap between releases gets too long without a clear pattern.</p>
+
+<div class="callout tip">
+<p class="box-title">Tell listeners the schedule</p>
+<p>If you choose a monthly or seasonal cadence, communicate it explicitly in your show notes and social posts so listeners know when to expect the next episode.</p>
+</div>
+
+<h2 id="consistency-matters-more-than-frequency">Consistency Matters More Than Frequency</h2>
+
+<p>A show that publishes reliably every other Tuesday will outperform a show that publishes "whenever it's ready," even if the second show technically releases more episodes per year.</p>
+
+<p>Listeners build a habit around your show. Podcast apps also surface shows with a predictable release pattern more favorably than ones with erratic gaps. If you have to choose between publishing more often and publishing on a schedule you can guarantee, choose the schedule you can guarantee every time.</p>
+
+<h2 id="a-simple-framework-for-choosing-your-cadence">A Simple Framework for Choosing Your Cadence</h2>
+
+<ol class="steps">
+<li><strong>Time audit.</strong> Track how many hours one episode actually takes you, from guest outreach through final publish, across your next three episodes. Most new podcasters underestimate this by half.</li>
+<li><strong>Capacity check.</strong> Divide your available weekly production hours by that per-episode number.</li>
+<li><strong>Buffer for life.</strong> Whatever cadence that math suggests, slow it down by one notch. If the math says weekly, plan for biweekly.</li>
+</ol>
+
+<p>You can always increase frequency later once you have a production rhythm. It's much harder to walk back a cadence you've publicly committed to.</p>
+
+<h2 id="signs-your-schedule-isn-t-sustainable">Signs Your Schedule Isn't Sustainable</h2>
+
+<ul>
+<li><strong>Rushed editing.</strong> You're consistently finishing edits the night before publish instead of days ahead.</li>
+<li><strong>Guest backlog thinning.</strong> You no longer have guests confirmed more than one or two episodes out.</li>
+<li><strong>Skipped weeks increasing.</strong> You've missed your stated publish date two or more times in the last quarter.</li>
+<li><strong>Dread instead of momentum.</strong> Recording day feels like a deadline to survive rather than something you look forward to.</li>
+</ul>
+
+<div class="callout note">
+<p class="box-title">Slow down, don't push harder</p>
+<p>Any one of these is a sign to slow your cadence before you burn out entirely, not a sign to push harder.</p>
+</div>
+
+<h2 id="where-a-tracker-makes-the-decision-easier">Where a Tracker Makes the Decision Easier</h2>
+
+<p>You can't evaluate your real cadence from memory or gut feeling. You need actual data on how long each stage takes and how often you're hitting your own deadlines.</p>
+
+<p>Logging recording date, editing deadline, and publish date for every episode in one place shows you, after just four or five episodes, how much runway your current schedule gives you. You'll see whether it's shrinking or holding steady. That visibility turns "I think weekly is too much" into "my last three edits each took two extra days, so biweekly is the realistic cadence."</p>
 
 <p>The Podcast Producer & Episode Management Tracker on <a href="https://kimnet8.gumroad.com/l/eagpjf">Gumroad</a> is built for exactly this kind of visibility. It logs recording dates, editing deadlines, and publish dates per episode, so the moment your buffer starts shrinking, you'll see it in the data instead of discovering it the week you miss a deadline. Choosing a sustainable cadence is the single highest-leverage decision you'll make for your show's longevity — track it, don't guess at it.</p>
 
+<aside class="post-cta">
+<img src="cover-600x600.png" alt="Podcast Producer & Episode Management Tracker" loading="lazy">
+<div><p class="cta-kicker">Make it easy to keep track</p>
+<h3>Podcast Producer & Episode Management Tracker</h3>
+<p>A ready-to-use spreadsheet and guide for tracking episodes from idea to publish.</p>
+<p><a class="buy-button" href="https://kimnet8.gumroad.com/l/eagpjf">Get the Tracker &middot; $19.99</a></p></div>
+</aside>
+
 </article>
-<footer><p><a href="https://podcast-producer-tracker.beehiiv.com/subscribe">Subscribe for an email when new posts go live</a></p><p>&copy; 2026</p></footer>
+</main>
+<footer class="site-footer"><div class="inner">
+<p><a href="https://podcast-producer-tracker.beehiiv.com/subscribe">Get an email when new guides go live</a></p>
+<p>&copy; 2026 SimpleTrackers</p>
+</div></footer>
 </body>
 </html>

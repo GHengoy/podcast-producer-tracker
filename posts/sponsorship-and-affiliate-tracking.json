@@ -1,1 +1,13 @@
-{"title": "Sponsorship and Affiliate Link Tracking: Never Lose Revenue Again", "date": "2026-08-13", "description": "Track podcast sponsorship spots and affiliate links per episode so you never miss a read, a deliverable, or a payment."}
+{
+  "title": "Sponsorship and Affiliate Link Tracking: Never Lose Revenue Again",
+  "date": "2026-08-13",
+  "description": "Track podcast sponsorship spots and affiliate links per episode so you never miss a read, a deliverable, or a payment.",
+  "hero": {
+    "src": "images/hero/sponsorship-and-affiliate-tracking.jpg",
+    "alt": "Black over-ear headphones resting on a white desk",
+    "credit": "FOCA Stock",
+    "credit_url": "https://stocksnap.io/photo/headphones-desk-KKOQ2ZWHO1",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

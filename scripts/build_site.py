@@ -1,8 +1,17 @@
 """Static site builder: assembles docs/ output from posts/ + templates/base.html."""
+import datetime as dt
 import html
 import json
+import math
+import re
+import shutil
 import sys
 from pathlib import Path
+
+WORDS_PER_MINUTE = 220
+TOC_MIN_HEADINGS = 3
+H2_RE = re.compile(r"<h2(\s[^>]*)?>(.*?)</h2>", re.S)
+TAG_RE = re.compile(r"<[^>]+>")
 
 
 def load_homepage_config(repo_root: Path) -> dict | None:
@@ -41,8 +50,125 @@ def load_posts(posts_dir: Path) -> list[dict]:
             "body": body,
             "description": meta.get("description"),
             "unlisted": meta.get("unlisted", False),
+            "hero": meta.get("hero"),
         })
     return posts
+
+
+def format_date(iso_date: str) -> str:
+    """'2026-10-04' -> 'October 4, 2026'."""
+    day = dt.date.fromisoformat(iso_date)
+    return f"{day:%B} {day.day}, {day.year}"
+
+
+def reading_minutes(body: str) -> int:
+    """Estimated reading time of an HTML fragment, rounded up, at least one minute."""
+    words = len(TAG_RE.sub(" ", body).split())
+    return max(1, math.ceil(words / WORDS_PER_MINUTE))
+
+
+def slugify(text: str) -> str:
+    plain = html.unescape(TAG_RE.sub("", text)).lower()
+    return re.sub(r"[^a-z0-9]+", "-", plain).strip("-") or "section"
+
+
+def add_heading_ids(body: str) -> tuple[str, list[tuple[str, str]]]:
+    """Give every <h2> an id (keeping existing ones) and return (body, [(id, heading html)])."""
+    headings = []
+    seen: dict[str, int] = {}
+
+    def replace(match):
+        attrs, text = match.group(1) or "", match.group(2)
+        existing = re.search(r'\bid="([^"]+)"', attrs)
+        anchor = existing.group(1) if existing else slugify(text)
+        seen[anchor] = seen.get(anchor, 0) + 1
+        if seen[anchor] > 1:
+            anchor = f"{anchor}-{seen[anchor]}"
+        headings.append((anchor, text.strip()))
+        if existing:
+            return match.group(0)
+        return f'<h2 id="{anchor}"{attrs}>{text}</h2>'
+
+    return H2_RE.sub(replace, body), headings
+
+
+def render_toc(headings: list[tuple[str, str]]) -> str:
+    """'In this guide' jump list; omitted for short posts."""
+    if len(headings) < TOC_MIN_HEADINGS:
+        return ""
+    items = "\n".join(f'<li><a href="#{anchor}">{TAG_RE.sub("", text)}</a></li>' for anchor, text in headings)
+    return f'<nav class="toc" aria-label="Contents"><p class="toc-title">In this guide</p>\n<ol>\n{items}\n</ol></nav>\n'
+
+
+def render_post_hero(hero: dict | None) -> str:
+    """Lead image with an optional photo credit and licence link."""
+    if not hero:
+        return ""
+    def esc(value: str) -> str:
+        return html.escape(value, quote=True)
+    caption = ""
+    if hero.get("credit"):
+        credit = esc(hero["credit"])
+        if hero.get("credit_url"):
+            credit = f'<a href="{esc(hero["credit_url"])}" rel="nofollow">{credit}</a>'
+        licence = ""
+        if hero.get("license"):
+            licence = esc(hero["license"])
+            if hero.get("license_url"):
+                licence = f'<a href="{esc(hero["license_url"])}" rel="license nofollow">{licence}</a>'
+            licence = f", {licence}"
+        caption = f"<figcaption>Photo: {credit}{licence}</figcaption>"
+    return (
+        f'<figure class="post-hero"><img src="{esc(hero["src"])}" alt="{esc(hero.get("alt", ""))}" '
+        f'width="1200" height="675">{caption}</figure>\n'
+    )
+
+
+def buy_attributes(config: dict) -> str:
+    """Paddle overlay trigger when 'paddle_price_id' is set, otherwise a plain link to 'buy_url'."""
+    if config.get("paddle_price_id"):
+        return f'href="#" data-paddle-price-id="{config["paddle_price_id"]}"'
+    return f'href="{config["buy_url"]}"'
+
+
+def render_post_cta(config: dict | None) -> str:
+    """Product box shown at the end of every listed post."""
+    if not config:
+        return ""
+    return (
+        f'<aside class="post-cta">\n'
+        f'<img src="{config["product_image"]}" alt="{config["product_name"]}" loading="lazy">\n'
+        f'<div><p class="cta-kicker">Make it easy to keep track</p>\n'
+        f'<h3>{config["product_name"]}</h3>\n'
+        f'<p>{config["product_description"]}</p>\n'
+        f'<p><a class="buy-button" {buy_attributes(config)}>{config["buy_label"]} &middot; {config["product_price"]}</a></p></div>\n'
+        f'</aside>\n'
+    )
+
+
+def compose_article(post: dict, cta_html: str) -> str:
+    """Article body for a listed post: meta line, lead image, contents, text, product box.
+
+    Unlisted pages (terms, privacy, thank-you) keep their body as written.
+    """
+    if post.get("unlisted"):
+        return post["body"]
+    body, headings = add_heading_ids(post["body"])
+    # the "back to the guide" link reads as a breadcrumb, so it stays above everything else
+    crumb = ""
+    crumb_match = re.match(r'\s*(<p class="pillar-link">.*?</p>)\s*', body, re.S)
+    if crumb_match:
+        crumb, body = crumb_match.group(1) + "\n", body[crumb_match.end():]
+    meta = (
+        f'<p class="post-meta"><time datetime="{post["date"]}">{format_date(post["date"])}</time>'
+        f' &middot; {reading_minutes(post["body"])} min read</p>\n'
+    )
+    # a leading key-takeaways box answers the question, so it goes before the contents list
+    summary = ""
+    summary_match = re.match(r'\s*(<div class="key-takeaways">.*?</div>)\s*', body, re.S)
+    if summary_match:
+        summary, body = summary_match.group(1) + "\n", body[summary_match.end():]
+    return crumb + meta + render_post_hero(post.get("hero")) + summary + render_toc(headings) + body + "\n" + cta_html
 
 
 def render_head_meta(title: str, description: str | None, url: str | None, og_type: str, image_url: str | None) -> str:
@@ -106,10 +232,7 @@ def render_hero(config: dict) -> str:
     The buy button opens a Paddle overlay checkout when 'paddle_price_id' is set, otherwise links to 'buy_url'.
     An optional 'more_products' list adds a related-products section below the main product.
     """
-    if config.get("paddle_price_id"):
-        buy_attrs = f'href="#" data-paddle-price-id="{config["paddle_price_id"]}"'
-    else:
-        buy_attrs = f'href="{config["buy_url"]}"'
+    buy_attrs = buy_attributes(config)
     return (
         f'<h2>{config["headline"]}</h2>\n'
         f'<p>{config["tagline"]}</p>\n'
@@ -125,13 +248,23 @@ def render_hero(config: dict) -> str:
 
 
 def render_index(template: str, posts: list[dict], hero_html: str = "", head_meta: str = "", title: str = "Home") -> str:
-    """Fill the base template with a list of links to all posts, newest first. Posts marked 'unlisted' are excluded. Optionally prefixed with a hero/product block."""
+    """Fill the base template with a card per post (thumbnail, title, description, date), newest first.
+
+    Posts marked 'unlisted' are excluded. Optionally prefixed with a hero/product block.
+    """
     listed_posts = [p for p in posts if not p.get("unlisted", False)]
-    items = "\n".join(
-        f'<li><a href="{p["slug"]}.html">{p["title"]}</a> — {p["date"]}</li>'
-        for p in sorted(listed_posts, key=lambda p: p["date"], reverse=True)
-    )
-    body = f"{hero_html}<ul>\n{items}\n</ul>"
+    cards = []
+    for p in sorted(listed_posts, key=lambda p: p["date"], reverse=True):
+        hero = p.get("hero")
+        thumb = (f'<img src="{html.escape(hero["src"], quote=True)}" alt="" loading="lazy">' if hero else "")
+        description = f'<span class="post-card-desc">{html.escape(p["description"])}</span>' if p.get("description") else ""
+        cards.append(
+            f'<li><a class="post-card" href="{p["slug"]}.html">{thumb}<span class="post-card-text">'
+            f'<strong>{p["title"]}</strong>{description}'
+            f'<span class="post-card-date">{format_date(p["date"])}</span></span></a></li>'
+        )
+    items = "\n".join(cards)
+    body = f'{hero_html}<ul class="post-list">\n{items}\n</ul>'
     return (
         template
         .replace("{{TITLE}}", title)
@@ -170,14 +303,22 @@ def build_site(posts_dir: Path, template_path: Path, output_dir: Path) -> list[P
     image_url = f'{base_url}{site_config["og_image"]}' if base_url and site_config.get("og_image") else None
 
     written = []
+    images_dir = posts_dir.parent / "images"
+    if images_dir.is_dir():
+        shutil.copytree(images_dir, output_dir / "images", dirs_exist_ok=True)
+        written.extend(p for p in (output_dir / "images").rglob("*") if p.is_file())
+
+    homepage_config = load_homepage_config(posts_dir.parent)
+    cta_html = render_post_cta(homepage_config)
     for post in posts:
         out_path = output_dir / f"{post['slug']}.html"
         post_url = f"{base_url}{post['slug']}.html" if base_url else None
-        head_meta = render_head_meta(post["title"], post["description"], post_url, "article", image_url)
-        out_path.write_text(render_post(template, post, head_meta), encoding="utf-8")
+        post_image = f'{base_url}{post["hero"]["src"]}' if base_url and post.get("hero") else image_url
+        head_meta = render_head_meta(post["title"], post["description"], post_url, "article", post_image)
+        page = {**post, "body": compose_article(post, cta_html)}
+        out_path.write_text(render_post(template, page, head_meta), encoding="utf-8")
         written.append(out_path)
 
-    homepage_config = load_homepage_config(posts_dir.parent)
     hero_html = ""
     if homepage_config:
         hero_html = render_hero(homepage_config)

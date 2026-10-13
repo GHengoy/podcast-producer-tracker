@@ -1,1 +1,13 @@
-{"title": "Building a Guest Coordination Workflow: From Outreach to Recording", "date": "2026-08-19", "description": "A step-by-step podcast guest workflow from first outreach to recording day: scheduling, prep materials, follow-ups, and what to track at each stage."}
+{
+  "title": "Building a Guest Coordination Workflow: From Outreach to Recording",
+  "date": "2026-08-19",
+  "description": "A step-by-step podcast guest workflow from first outreach to recording day: scheduling, prep materials, follow-ups, and what to track at each stage.",
+  "hero": {
+    "src": "images/hero/guest-coordination-workflow.jpg",
+    "alt": "Podcast host interviewing a guest at a table with microphones",
+    "credit": "1DayReview",
+    "credit_url": "https://www.flickr.com/photos/159770474@N08/43680656622",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/"
+  }
+}

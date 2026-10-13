@@ -1,1 +1,13 @@
-{"title": "How Often Should You Publish a Podcast? Finding a Sustainable Release Schedule", "date": "2026-10-14", "description": "Weekly, biweekly, or monthly? A practical framework for choosing a podcast release schedule you can actually sustain long-term."}
+{
+  "title": "How Often Should You Publish a Podcast? Finding a Sustainable Release Schedule",
+  "date": "2026-10-14",
+  "description": "Weekly, biweekly, or monthly? A practical framework for choosing a podcast release schedule you can actually sustain long-term.",
+  "hero": {
+    "src": "images/hero/how-often-should-you-publish-a-podcast.jpg",
+    "alt": "White desk clock beside a pen and notebook on a clean desk",
+    "credit": "freestocks.org",
+    "credit_url": "https://www.flickr.com/photos/135396164@N05/33572876081",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

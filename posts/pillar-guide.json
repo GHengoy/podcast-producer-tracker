@@ -1,1 +1,13 @@
-{"title": "The Complete Guide to Podcast Episode & Production Management", "date": "2026-08-24", "description": "The complete guide to podcast episode and production management: planning, guest scheduling, recording, editing, publishing, and sponsor tracking."}
+{
+  "title": "The Complete Guide to Podcast Episode & Production Management",
+  "date": "2026-08-24",
+  "description": "The complete guide to podcast episode and production management: planning, guest scheduling, recording, editing, publishing, and sponsor tracking.",
+  "hero": {
+    "src": "images/hero/pillar-guide.jpg",
+    "alt": "Home podcasting studio with a microphone, small mixer, headphones and laptop on a desk",
+    "credit": "TimWilson",
+    "credit_url": "https://www.flickr.com/photos/70816538@N00/31207113",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/"
+  }
+}

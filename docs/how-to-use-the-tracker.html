@@ -10,89 +10,230 @@
 <meta property="og:title" content="How to Use the Podcast Tracker: A Walkthrough of Columns and Daily Workflows">
 <meta property="og:description" content="A walkthrough of the Podcast Producer &amp; Episode Management Tracker&#x27;s columns and the daily workflows that keep every episode on track.">
 <meta property="og:url" content="https://ghengoy.github.io/podcast-producer-tracker/how-to-use-the-tracker.html">
-<meta property="og:image" content="https://ghengoy.github.io/podcast-producer-tracker/cover-600x600.png">
+<meta property="og:image" content="https://ghengoy.github.io/podcast-producer-tracker/images/hero/how-to-use-the-tracker.jpg">
 <meta name="p:domain_verify" content="ed2ca7fb71cecfffeba5d895002ee1d1"/>
 <script data-goatcounter="https://ghengoy.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <style>
-  body { font-family: -apple-system, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #222; }
-  a { color: #0a5; }
-  header, footer { font-size: 0.9rem; color: #666; }
-  nav a { margin-right: 1rem; }
-  article h2 { font-size: 1.6rem; }
-  .product-box { border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
-  .product-box img { max-width: 200px; display: block; margin-bottom: 1rem; }
-  .buy-button { display: inline-block; background: #0a5; color: #fff; padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: bold; }
-  .buy-button:hover { background: #084; }
-  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0 2rem; }
-  .product-card { display: flex; flex-direction: column; gap: 0.25rem; border: 1px solid #ddd; border-radius: 8px; padding: 0.75rem; color: #222; text-decoration: none; font-size: 0.9rem; line-height: 1.35; }
-  .product-card:hover { border-color: #0a5; }
-  .product-card img { width: 100%; height: auto; border-radius: 4px; }
-  .product-card span { color: #666; }
-  .product-card .price { color: #0a5; font-weight: bold; }
+  :root { --accent: #4A306D; --accent-dark: #32204A; --tint: #F1ECF7; --ink: #1f2328; --muted: #5d6470;
+          --line: #e4e1da; --paper: #fbfaf7; --card: #ffffff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+         font-size: 18px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { color: var(--accent-dark); }
+  img { max-width: 100%; height: auto; }
+  .site-header { background: var(--card); border-bottom: 1px solid var(--line); }
+  .site-header .inner { max-width: 760px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { font-weight: 700; color: var(--ink); text-decoration: none; font-size: 17px; display: flex; align-items: center; gap: 10px; }
+  .brand-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); display: inline-block; position: relative; }
+  .brand-mark::after { content: ""; position: absolute; left: 7px; top: 8px; width: 14px; height: 3px; background: #fff; border-radius: 2px;
+                       box-shadow: 0 5px 0 #fff, 0 10px 0 rgba(255,255,255,.6); }
+  .site-header nav { display: flex; gap: 18px; font-size: 15px; }
+  .site-header nav a { color: var(--muted); text-decoration: none; }
+  .site-header nav a:hover { color: var(--accent); }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 56px; }
+  article > h1, main > h1 { font-size: clamp(30px, 5vw, 42px); line-height: 1.2; letter-spacing: -0.02em; margin: 8px 0 12px; }
+  h2 { font-size: 27px; line-height: 1.3; letter-spacing: -0.01em; margin: 52px 0 14px; padding-top: 6px; scroll-margin-top: 16px; }
+  h3 { font-size: 21px; line-height: 1.35; margin: 32px 0 8px; }
+  p { margin: 0 0 20px; }
+  ul, ol { padding-left: 1.3em; margin: 0 0 22px; }
+  li { margin-bottom: 8px; }
+  li::marker { color: var(--accent); }
+  strong { font-weight: 650; }
+  .pillar-link { font-size: 15px; margin: 0 0 4px; }
+  .pillar-link a { text-decoration: none; }
+  .post-meta { color: var(--muted); font-size: 15px; margin: 0 0 24px; }
+  .post-hero { margin: 0 0 28px; }
+  .post-hero img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; display: block; background: var(--tint); }
+  figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  figcaption a { color: var(--muted); }
+  .toc { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 22px 8px; margin: 0 0 32px; font-size: 16px; }
+  .toc-title { font-weight: 700; margin: 0 0 8px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .toc ol { margin: 0 0 10px; }
+  .toc li { margin-bottom: 4px; }
+  .toc a { text-decoration: none; }
+  .key-takeaways, .callout { border-radius: 12px; padding: 20px 24px 6px; margin: 0 0 30px; }
+  .key-takeaways { background: var(--tint); border-left: 5px solid var(--accent); }
+  .key-takeaways ul { margin-bottom: 14px; }
+  .box-title { font-weight: 700; margin: 0 0 8px; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent-dark); }
+  .callout { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--accent); }
+  .callout.note { border-left-color: #b7791f; }
+  .callout.note .box-title { color: #8a5a12; }
+  .steps { list-style: none; counter-reset: step; padding-left: 0; }
+  .steps > li { counter-increment: step; position: relative; padding-left: 52px; margin-bottom: 18px; }
+  .steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%;
+                        background: var(--accent); color: #fff; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .table-wrap { overflow-x: auto; margin: 0 0 28px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+  table { border-collapse: collapse; width: 100%; font-size: 16px; line-height: 1.5; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--tint); color: var(--accent-dark); font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+  .pin-figure { margin: 36px auto; max-width: 400px; text-align: center; }
+  .pin-figure img { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.12); display: block; }
+  blockquote { margin: 0 0 24px; padding: 4px 0 4px 20px; border-left: 3px solid var(--line); color: var(--muted); font-style: italic; }
+  .post-cta { display: flex; gap: 24px; align-items: center; background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--accent);
+              border-radius: 14px; padding: 24px; margin: 48px 0 8px; }
+  .post-cta img { width: 150px; border-radius: 10px; flex-shrink: 0; }
+  .post-cta h3 { margin: 2px 0 6px; }
+  .post-cta p { margin-bottom: 12px; font-size: 16px; }
+  .cta-kicker { font-size: 13px !important; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 !important; }
+  .buy-button { display: inline-block; background: var(--accent); color: #fff !important; padding: 12px 22px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 16px; }
+  .buy-button:hover { background: var(--accent-dark); }
+  .product-box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin: 24px 0 36px; display: grid; grid-template-columns: 200px 1fr; gap: 0 24px; align-items: center; }
+  .product-box img { width: 200px; border-radius: 10px; grid-row: span 3; }
+  .product-box h3 { margin: 0 0 6px; }
+  .product-box p { margin-bottom: 12px; font-size: 16px; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin: 12px 0 36px; }
+  .product-card { display: flex; flex-direction: column; gap: 4px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; color: var(--ink); text-decoration: none; font-size: 15px; line-height: 1.4; }
+  .product-card:hover { border-color: var(--accent); }
+  .product-card img { width: 100%; border-radius: 8px; margin-bottom: 4px; }
+  .product-card span { color: var(--muted); }
+  .product-card .price { color: var(--accent); font-weight: 700; }
+  .post-list { list-style: none; padding: 0; display: grid; gap: 16px; }
+  .post-list li { margin: 0; }
+  .post-card { display: flex; gap: 18px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; color: var(--ink); text-decoration: none; }
+  .post-card:hover { border-color: var(--accent); }
+  .post-card img { width: 200px; object-fit: cover; flex-shrink: 0; background: var(--tint); }
+  .post-card-text { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px 16px 0; }
+  .post-card-text strong { font-size: 19px; line-height: 1.35; }
+  .post-card-desc { color: var(--muted); font-size: 15px; line-height: 1.55; }
+  .post-card-date { color: var(--muted); font-size: 13px; }
+  .site-footer { border-top: 1px solid var(--line); background: var(--card); color: var(--muted); font-size: 15px; }
+  .site-footer .inner { max-width: 760px; margin: 0 auto; padding: 28px 20px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .site-footer p { margin: 0; }
+  @media (max-width: 600px) {
+    body { font-size: 17px; }
+    h2 { font-size: 23px; margin-top: 40px; }
+    .post-cta, .post-card { flex-direction: column; }
+    .post-cta img { width: 120px; }
+    .post-card img { width: 100%; aspect-ratio: 16 / 9; }
+    .post-card-text { padding: 0 16px 16px; }
+    .product-box { grid-template-columns: 1fr; }
+    .product-box img { grid-row: auto; margin-bottom: 12px; }
+  }
 </style>
 </head>
 <body>
-<header><nav><a href="index.html">Home</a></nav></header>
+<header class="site-header"><div class="inner">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>Podcast Production</a>
+<nav><a href="index.html">Guides</a><a href="pillar-guide.html">Start here</a></nav>
+</div></header>
+<main>
 <article>
 <h1>How to Use the Podcast Tracker: A Walkthrough of Columns and Daily Workflows</h1>
-<p class="date">2026-08-15</p>
 <p class="pillar-link"><a href="pillar-guide.html">&larr; Back to the Complete Podcast Production Guide</a></p>
+<p class="post-meta"><time datetime="2026-08-15">August 15, 2026</time> &middot; 5 min read</p>
+<figure class="post-hero"><img src="images/hero/how-to-use-the-tracker.jpg" alt="Person checking a phone at a wooden desk with a laptop and notebook" width="1200" height="675"><figcaption>Photo: <a href="https://www.flickr.com/photos/132795455@N08/18692171181" rel="nofollow">Image Catalog</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="license nofollow">CC0</a></figcaption></figure>
+<div class="key-takeaways">
+<p class="box-title">Key takeaways</p>
+<ul>
+<li><strong>One row per episode:</strong> add a row for each episode and fill in details as they become known.</li>
+<li><strong>Dates drive everything:</strong> recording date, editing deadline and publish date show your workload weeks ahead.</li>
+<li><strong>Status columns flag action:</strong> a "Pending" guest after a week means send a follow-up; "In progress" publish status means something is still open.</li>
+<li><strong>Make it a habit:</strong> a five-minute Monday review catches most problems before they become disasters.</li>
+</ul>
+</div>
+<nav class="toc" aria-label="Contents"><p class="toc-title">In this guide</p>
+<ol>
+<li><a href="#the-core-columns">The Core Columns</a></li>
+<li><a href="#daily-workflow">Daily Workflow</a></li>
+<li><a href="#making-it-stick">Making It Stick</a></li>
+</ol></nav>
+<p>A podcast tracker only works if it's actually used. The best system in the world sits unused if it's confusing or requires too much effort to maintain.</p>
 
-<p>A podcast tracker only works if it's actually used. The best system in the world sits unused if it's confusing or requires too much effort to maintain. The Podcast Producer & Episode Management Tracker is designed to be simple: add a row for each episode, fill in key details as they become known, and reference it daily to stay on top of deadlines.</p>
+<p>The Podcast Producer &amp; Episode Management Tracker is designed to be simple: add a row for each episode, fill in key details as they become known, and reference it daily to stay on top of deadlines. If you're new to tracking or switching from email-and-notes chaos, here's exactly how to use it day-to-day.</p>
 
-<p>If you're new to tracking or considering switching from email-and-notes chaos, here's exactly how to use the tracker day-to-day.</p>
+<h2 id="the-core-columns">The Core Columns</h2>
 
-<h2>The Core Columns</h2>
+<p>The columns fall into four groups: identifying the episode, the guest, the schedule, and what happens around publishing.</p>
 
-<p><strong>Date:</strong> This is typically the episode number's corresponding air date. If Episode 5 publishes on August 25th, this cell says "2026-08-25." This column is your primary sort and lets you scan weeks of upcoming episodes at a glance.</p>
+<h3>Episode basics</h3>
 
-<p><strong>Episode Number:</strong> Sequential numbering (1, 2, 3, etc.) makes it easy to reference episodes in conversation. "Did we send the prep materials for Episode 12?" It's faster than saying "the one with the guest from Brooklyn."</p>
+<ul>
+<li><strong>Date.</strong> The episode's air date. If Episode 5 publishes on August 25th, this cell says "2026-08-25." It's your primary sort and lets you scan weeks of upcoming episodes at a glance.</li>
+<li><strong>Episode Number.</strong> Sequential numbering (1, 2, 3, etc.) makes episodes easy to reference. "Did we send the prep materials for Episode 12?" is faster than "the one with the guest from Brooklyn."</li>
+<li><strong>Episode Title.</strong> The title that will appear in your RSS feed and on your website. It's fine if this starts empty until recording or editing. Filling it in before show notes are written keeps everything aligned.</li>
+</ul>
 
-<p><strong>Episode Title:</strong> The title that will appear in your RSS feed and on your website. You might not know this until after recording or during editing, so it's fine if this cell starts empty. Filling it in before show notes are written is helpful for keeping everything aligned.</p>
+<h3>Guest details</h3>
 
-<p><strong>Guest Name and Guest Email:</strong> Self-explanatory, but critical. If a guest emails you asking "when should I log in?" you look up their name in the tracker, find the recording date and time, and respond instantly. You don't dig through email threads.</p>
+<ul>
+<li><strong>Guest Name and Guest Email.</strong> Self-explanatory, but critical. If a guest asks "when should I log in?", you look up their name, find the recording date and time, and respond instantly. You don't dig through email threads.</li>
+<li><strong>Guest Confirmation Status.</strong> "Pending," "Confirmed," or "Declined." This tells you whether the slot is actually filled or you need to keep outreaching. A row still "Pending" after a week means you need to send a follow-up email.</li>
+</ul>
 
-<p><strong>Guest Confirmation Status:</strong> "Pending," "Confirmed," or "Declined." This single field tells you whether the episode slot is actually filled or if you need to keep outreaching. A column full of "Confirmed" entries shows you've got your pipeline locked in. A row with "Pending" after a week means you need to send a follow-up email.</p>
+<h3>Schedule and deadlines</h3>
 
-<p><strong>Recording Date and Recording Time:</strong> The date and time you've scheduled with the guest. This is your internal deadline for being ready to record. If recording dates start to collide or bunch up (three episodes recorded in one day), you can see it and spread them out before hitting the wall.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Column</th><th>What it is</th><th>Why it helps</th></tr></thead>
+<tbody>
+<tr><td>Recording Date and Time</td><td>When you've scheduled the guest; your internal deadline to be ready</td><td>Spot recordings bunching up (three in one day) and spread them out</td></tr>
+<tr><td>Editing Deadline</td><td>When editing must be done. A 3-day edit recorded Monday is due Thursday.</td><td>Three editing deadlines on Friday tells you Wednesday will be tight</td></tr>
+<tr><td>Publish Date</td><td>When the episode goes live: your promise to your audience</td><td>Lock it in weeks ahead and build the timeline around it</td></tr>
+<tr><td>Publish Status</td><td>"Not yet," "In progress," "Published"</td><td>Filter by show to see which episodes are still pending publication</td></tr>
+</tbody>
+</table>
+</div>
 
-<p><strong>Editing Deadline:</strong> When this episode must be done editing. If your typical edit takes 3 days and you record on Monday, the editing deadline is Thursday. This date helps you manage workload. If you've got three editing deadlines on Friday, you know Wednesday is going to be tight.</p>
+<h3>Revenue, metadata and promotion</h3>
 
-<p><strong>Publish Date:</strong> When the episode goes live. This is the promise to your audience. Lock this in weeks in advance and build your production timeline around it.</p>
+<ul>
+<li><strong>Sponsorship Deal.</strong> The name or type of sponsorship (e.g., "Acme Tools" or "Affiliate: $X per link"). Leave it blank if you're not running sponsors. If you are, it shows which episodes have paid promotions and which are organic.</li>
+<li><strong>Affiliate Links.</strong> URLs or references to affiliate links mentioned in the episode, so you can later verify they were included in show notes and actually went live.</li>
+<li><strong>Episode Length (minutes).</strong> Metadata your distribution platform needs. If most episodes run 40-50 minutes but one is 70, that's useful feedback about pacing or guest chemistry.</li>
+<li><strong>Show Notes Link.</strong> Where your show notes live (your website, Notion, Google Doc, etc.), so you can jump straight to full episode details.</li>
+<li><strong>Promotion Status.</strong> "Not started," "In progress," or "Complete." Did you share clips, email your list, post on social media? This flags which episodes were promoted and which are sitting quietly in the feed.</li>
+</ul>
 
-<p><strong>Publish Status:</strong> "Not yet," "In progress," "Published." This tells you which episodes have actually gone live. If you're running multiple shows, you can filter this column to see which show's episodes are still pending publication.</p>
+<h2 id="daily-workflow">Daily Workflow</h2>
 
-<p><strong>Sponsorship Deal:</strong> The name or type of sponsorship attached to this episode (e.g., "Acme Tools" or "Affiliate: $X per link"). If you're not running sponsors, leave it blank. If you are, this column ensures you remember which episodes have paid promotions and which are organic.</p>
+<p>Here's how the tracker fits into a typical production week:</p>
 
-<p><strong>Affiliate Links:</strong> URLs or references to any affiliate links mentioned in this episode. Tracking them here lets you go back later and verify they were included in show notes and actually went live.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>When</th><th>What to do in the tracker</th></tr></thead>
+<tbody>
+<tr><td>Monday morning</td><td>Review the week. Which episodes are recording? Are guests confirmed? Are editing deadlines coming up, and does the editor have the raw files? Are show notes being written for this week's publish dates?</td></tr>
+<tr><td>Wednesday</td><td>A guest emails about recording time. Look up their name, grab the date and time, send confirmation. 30 seconds instead of five minutes of email searching.</td></tr>
+<tr><td>Thursday</td><td>Recording session. Note episode length and any notes (great guest, technical glitches). Get the file to the editor immediately.</td></tr>
+<tr><td>Friday</td><td>Check the editing deadline. Done? Start show notes. Not done? Confirm with the editor what's blocking it. Set publish status to "In progress" and schedule promotion (clips, emails, social posts).</td></tr>
+<tr><td>Sunday night</td><td>Verify the episode published. Set status to "Published," check affiliate links are in show notes, add early listener counts if you have them, and look ahead to next week.</td></tr>
+</tbody>
+</table>
+</div>
 
-<p><strong>Episode Length (minutes):</strong> How long the final published episode is. This is metadata your distribution platform needs, and tracking it helps you spot patterns. If most of your episodes run 40-50 minutes but one is 70, that's useful feedback about pacing or guest chemistry.</p>
+<figure class="pin-figure">
+<img src="images/pins/how-to-use-the-tracker.jpg" alt="Infographic: five habits for using a podcast tracker daily, from a Monday review reminder to checking affiliate links in show notes" width="600" height="900" loading="lazy">
+<figcaption>Save this summary to Pinterest for later.</figcaption>
+</figure>
 
-<p><strong>Show Notes Link:</strong> A link to where your show notes live (your website, Notion, Google Doc, etc.). This is a quick reference to jump to full episode details without digging through folders.</p>
+<h2 id="making-it-stick">Making It Stick</h2>
 
-<p><strong>Promotion Status:</strong> "Not started," "In progress," or "Complete." Did you share clips? Send the episode to your email list? Post about it on social media? This column flags which episodes have actually been promoted versus which are sitting quietly in the feed.</p>
+<p>The tracker only works if you check it regularly, ideally daily or every other day.</p>
 
-<h2>Daily Workflow</h2>
+<div class="callout tip">
+<p class="box-title">Set one recurring reminder</p>
+<p>Add a recurring calendar reminder for Monday morning: "Review podcast tracker." That five-minute review prevents most problems. You catch missed confirmations, see editing deadlines coming up, and spot scheduling conflicts before they become disasters.</p>
+</div>
 
-<p><strong>Monday Morning:</strong> Review the tracker. Which episodes are being recorded this week? Make sure guests are confirmed. Check that editing deadlines are coming up and confirm the editor has the raw files. Look at publish dates this week and confirm show notes are being written.</p>
-
-<p><strong>Wednesday:</strong> A guest emails you about recording time. Look up their name, grab the recording date and time from the tracker, send confirmation. Takes 30 seconds instead of five minutes of email searching.</p>
-
-<p><strong>Thursday:</strong> Recording session happens. Mark down episode length and any notes (guest was great but we had technical glitches, for example). Make sure the editor has the file immediately after recording.</p>
-
-<p><strong>Friday:</strong> Check editing deadline. Is the episode done? If yes, start show notes. If no, confirm with editor what's blocking it. Update publish status to "In progress." Schedule promotion (clips, emails, social posts).</p>
-
-<p><strong>Sunday Night:</strong> Verify the episode published successfully. Update publish status to "Published." Make sure affiliate links are in show notes. Add listener count if you have early metrics. Close out this episode and look ahead to next week.</p>
-
-<h2>Making It Stick</h2>
-
-<p>The tracker only works if you check it regularly—ideally daily or every other day. Set a recurring calendar reminder for Monday morning: "Review podcast tracker." That five-minute review prevents most problems. You catch missed confirmations, see editing deadlines coming up, and spot scheduling conflicts before they become disasters.</p>
-
-<p>The Podcast Producer & Episode Management Tracker is pre-built with all these columns and ready to fill in. No need to design your own spreadsheet or guess what to track. Start using it today and watch your production workflow become predictable and manageable.</p>
+<p>The Podcast Producer &amp; Episode Management Tracker is pre-built with all these columns and ready to fill in. No need to design your own spreadsheet or guess what to track. Start using it today and watch your production workflow become predictable and manageable.</p>
 
 <p>Get the tracker from <a href="https://kimnet8.gumroad.com/l/eagpjf">Gumroad</a> and start organizing your podcast operation in minutes, not weeks.</p>
 
+<aside class="post-cta">
+<img src="cover-600x600.png" alt="Podcast Producer & Episode Management Tracker" loading="lazy">
+<div><p class="cta-kicker">Make it easy to keep track</p>
+<h3>Podcast Producer & Episode Management Tracker</h3>
+<p>A ready-to-use spreadsheet and guide for tracking episodes from idea to publish.</p>
+<p><a class="buy-button" href="https://kimnet8.gumroad.com/l/eagpjf">Get the Tracker &middot; $19.99</a></p></div>
+</aside>
+
 </article>
-<footer><p><a href="https://podcast-producer-tracker.beehiiv.com/subscribe">Subscribe for an email when new posts go live</a></p><p>&copy; 2026</p></footer>
+</main>
+<footer class="site-footer"><div class="inner">
+<p><a href="https://podcast-producer-tracker.beehiiv.com/subscribe">Get an email when new guides go live</a></p>
+<p>&copy; 2026 SimpleTrackers</p>
+</div></footer>
 </body>
 </html>

@@ -1,1 +1,13 @@
-{"title": "The Complete Podcast Episode Checklist: Idea to Publish", "date": "2026-09-07", "description": "A complete podcast episode checklist from idea to publish, covering pre-production, recording, editing, publishing, and post-release follow-up."}
+{
+  "title": "The Complete Podcast Episode Checklist: Idea to Publish",
+  "date": "2026-09-07",
+  "description": "A complete podcast episode checklist from idea to publish, covering pre-production, recording, editing, publishing, and post-release follow-up.",
+  "hero": {
+    "src": "images/hero/podcast-episode-checklist.jpg",
+    "alt": "Desk set up for a remote podcast recording with a USB microphone, laptop video call and notes",
+    "credit": "Ter-burg",
+    "credit_url": "https://commons.wikimedia.org/w/index.php?curid=36610248",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/"
+  }
+}

@@ -1,1 +1,13 @@
-{"title": "Production Timeline: Managing Recording, Editing, and Publishing Dates", "date": "2026-08-17", "description": "Manage every podcast deadline from recording through editing, show notes, and publishing, and keep a realistic production timeline."}
+{
+  "title": "Production Timeline: Managing Recording, Editing, and Publishing Dates",
+  "date": "2026-08-17",
+  "description": "Manage every podcast deadline from recording through editing, show notes, and publishing, and keep a realistic production timeline.",
+  "hero": {
+    "src": "images/hero/production-timeline-from-recording-to-publish.jpg",
+    "alt": "Studio microphone with pop filter in front of an audio editing timeline on screen",
+    "credit": "chocolatedazzles",
+    "credit_url": "https://www.flickr.com/photos/186095195@N02/49431078271",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/"
+  }
+}

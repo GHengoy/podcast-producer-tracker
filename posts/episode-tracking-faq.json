@@ -1,1 +1,13 @@
-{"title": "Episode Tracking FAQ: Your Questions Answered", "date": "2026-08-09", "description": "Answers to the questions podcasters ask most about organizing a show: what to track per episode, how to handle guests, and keeping deadlines on schedule."}
+{
+  "title": "Episode Tracking FAQ: Your Questions Answered",
+  "date": "2026-08-09",
+  "description": "Answers to the questions podcasters ask most about organizing a show: what to track per episode, how to handle guests, and keeping deadlines on schedule.",
+  "hero": {
+    "src": "images/hero/episode-tracking-faq.jpg",
+    "alt": "Hand writing notes in an agenda next to a podcast microphone",
+    "credit": "soycelycruz",
+    "credit_url": "https://wordpress.org/photos/photo/4756694517/",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
