@@ -46,3 +46,10 @@
 - `site.json`에 `title`, `description`, `og_image` 추가 — 홈페이지 제목이 "Home" 대신 사이트 이름으로 표시
 - `build_site.py`를 3개 니치 저장소에서 동일 코드로 통일(unlisted 포스트, 홈 히어로, Paddle/URL 구매 버튼 지원)
 - 배경: Search Console에서 홈페이지 1개만 색인, 사이트맵 "가져올 수 없음" 상태 확인 — 2026-10-03 사이트맵 재제출 및 색인 요청
+
+## [2026-10-14] CONTENT | 신규 포스트: 발행 주기 가이드
+
+- 검색 의도형 포스트 추가: "how often should you publish a podcast" 쿼리 타게팅
+- 주간/격주/월간 발행 주기별 장단점과 지속가능한 주기를 고르는 3단계 프레임워크 제공, 트래커로 자신의 실제 처리 속도를 측정해 결정하도록 연결
+- pillar-guide.html에 "Choosing a Release Schedule You Can Actually Keep" 섹션 추가 (링크 역할)
+- 테스트 결과: 포스트 검증 통과, 45개 단위 테스트 통과, 빌드 성공 (23개 파일)
