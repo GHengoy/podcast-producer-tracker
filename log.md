@@ -69,3 +69,10 @@
 - pillar-guide.html에 "When a Guest Cancels or Doesn't Show Up" 섹션 추가 (링크 역할)
 - 이미지 검색 API 타임아웃(2회)으로 대표 사진 없이 발행
 - 테스트 결과: 포스트 검증 통과, 57개 단위 테스트 통과, 빌드 성공 (47개 파일)
+
+## [2026-10-29] CONTENT | 기존 포스트 12편을 4컷 만화+핵심 3줄 형식으로 변환
+
+- 기존 포스트 12편을 4컷 만화+핵심 3줄 형식으로 변환 (제목·날짜·슬러그·.json 유지, 본문 .html만 교체)
+- 변환 대상: episode-tracking-faq, guest-coordination-workflow, how-many-episodes-should-you-record-ahead, how-often-should-you-publish-a-podcast, how-to-use-the-tracker, managing-multiple-shows, podcast-episode-checklist, podcast-production-essentials, production-timeline-from-recording-to-publish, sponsorship-and-affiliate-tracking, what-to-do-when-a-podcast-guest-cancels, why-episode-tracking-matters (총 12편)
+- pillar-guide.html은 허브 페이지라 변환하지 않음
+- 테스트 결과: 포스트 검증 통과, 59개 단위 테스트 통과, 빌드 성공 (47개 파일)
