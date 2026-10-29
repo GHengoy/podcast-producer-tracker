@@ -49,5 +49,15 @@ class TestValidatePost(unittest.TestCase):
         self.assertTrue(any("denylisted phrase" in e for e in errors))
 
 
+class TestStoryPost(unittest.TestCase):
+    def test_comic_post_allowed_to_be_short(self):
+        html = '<div class="comic">' + "word " * 130 + "</div>"
+        self.assertFalse(any("minimum is" in e for e in validate_post(html)))
+
+    def test_comic_post_still_needs_some_text(self):
+        html = '<div class="comic">word word</div>'
+        self.assertTrue(any("minimum is 120" in e for e in validate_post(html)))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 
 MIN_WORD_COUNT = 500
+MIN_STORY_WORD_COUNT = 120  # comic-style story posts are short on purpose
 
 DENYLISTED_PHRASES = [
     "should administer",
@@ -28,8 +29,9 @@ def validate_post(html: str) -> list[str]:
     errors = []
     text = strip_tags(html)
     word_count = len(text.split())
-    if word_count < MIN_WORD_COUNT:
-        errors.append(f"post is {word_count} words, minimum is {MIN_WORD_COUNT}")
+    minimum = MIN_STORY_WORD_COUNT if 'class="comic"' in html else MIN_WORD_COUNT
+    if word_count < minimum:
+        errors.append(f"post is {word_count} words, minimum is {minimum}")
 
     lowered = html.lower()
     for phrase in DENYLISTED_PHRASES:

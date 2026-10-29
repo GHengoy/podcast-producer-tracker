@@ -99,6 +99,15 @@
   .post-card-text strong { font-size: 19px; line-height: 1.35; }
   .post-card-desc { color: var(--muted); font-size: 15px; line-height: 1.55; }
   .post-card-date { color: var(--muted); font-size: 13px; }
+  .comic { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 0 0 30px; }
+  .comic .panel { background: var(--card); border: 2px solid var(--ink, #222); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-height: 190px; }
+  .comic .scene { font-size: 54px; line-height: 1.1; text-align: center; }
+  .comic .bubble { position: relative; background: #fff; border: 2px solid var(--ink, #222); border-radius: 16px; padding: 10px 14px; margin: 0; font-size: 17px; line-height: 1.4; font-weight: 600; }
+  .comic .bubble.think { border-style: dashed; font-weight: 500; font-style: italic; }
+  .comic .caption { margin: auto 0 0; font-size: 14px; color: var(--muted); text-align: center; }
+  .story-points { background: var(--tint); border-left: 5px solid var(--accent); border-radius: 12px; padding: 18px 22px 6px; margin: 0 0 30px; }
+  .story-points li { font-size: 19px; margin-bottom: 10px; }
+  @media (max-width: 600px) { .comic { grid-template-columns: 1fr; } }
   .site-footer { border-top: 1px solid var(--line); background: var(--card); color: var(--muted); font-size: 15px; }
   .site-footer .inner { max-width: 760px; margin: 0 auto; padding: 28px 20px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   .site-footer p { margin: 0; }
